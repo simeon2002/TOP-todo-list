@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <nav class="nav">
+        <div class="user-container">
+          <div class="user-details">
+            <p class="user-details__user-name">Simeon serafimov</p>
+          </div>
+        </div>
+        <div class="nav-container">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <button class="btn btn--create-task">Add task</button>
+            </li>
+            <li class="nav-item">
+              <ion-icon name="heart" size="large"></ion-icon>
+              <ion-icon class="icon-add-task" name="add-outline"></ion-icon>
+              <button type="button" class="btn btn--nav">Inbox</button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn btn--nav">All Tasks</button>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn btn--nav btn--projects">Projects</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <main class="main-container">
+        <article class="project">
+          <h1 class="project-title">Project Title</h1>
+          <hr />
+          <div class="task-list">
+            <div class="task">
+              <input type="checkbox" checked />
+              <h2 class="heading-secondary task__title">Task name</h2>
+              <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
+            </div>
+            <div class="task">
+              <input type="checkbox" checked />
+              <h2 class="heading-secondary task__title">Task name</h2>
+              <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
+            </div>
+            <div class="task">
+              <input type="checkbox" checked />
+              <h2 class="heading-secondary task__title">Task name</h2>
+              <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
+            </div>
+            <div class="add-task-container">
+              <button class="btn btn--create-task">Add task</button>
+            </div>
+          </div>
+        </article>
+      </main>
+    </div>
+  </body>
+</html>

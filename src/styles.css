@@ -9,15 +9,22 @@
 
   /*****  COLORS (primary, secondary, accents and greys) *****/
   --clr-white: #fff;
-  --clr-black: hsl(0, 0%, 0%);
-  --clr-grey: rgb(117, 117, 117);
-  --clr-green: green;
-  --clr-green-light: rgba(0, 128, 0, 0.772);
+  --clr-primary: #32cd32;
+  --clr-primary-800: #0d4e0d;
+  --clr-gray-900: #1b1d1b;
+  --clr-gray-500: hsl(120, 6%, 42%);
+  --clr-gray-200: hsl(120, 8%, 95%);
+  --clr-gray-100: hsl(0, 0%, 99%);
+  /* --clr-secondary: */
+  /* Add semantic colors later! */
 
   /***** TYPOGRAPHY *****/
   /* font weights */
   --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semi-bold: 600;
   --fw-bold: 700;
+  --fw-extra-bold: 800;
 
   /* - Font sizes (px) */
   --fs-100: 1rem; /* 10px */
@@ -36,6 +43,14 @@
   --fs-1400: 8.6rem; /* 86px */
   --fs-1500: 9.8rem; /* 98px */
 
+  /* semantic font names */
+  --fs-caption: var(--fs-200);
+  --fs-text-prim: var(--fs-400);
+  --fs-text-sec: var(--fs-300);
+  --fs-heading-prim: var(--fs-900);
+  --fs-heading-sec: var(--fs-700);
+  --fs-heading-tert: var(--fs-600);
+
   /* letter spacing */
   /* line heights */
 
@@ -44,6 +59,7 @@
   --space-20: 0.2rem;
   --space-50: 0.4rem;
   --space-100: 0.8rem;
+  --space-140: 1.2rem;
   --space-200: 1.6rem;
   --space-300: 2.4rem;
   --space-400: 3.2rem;
@@ -61,10 +77,87 @@
 /********************************************/
 /* SPECIFIC STYLES */
 /********************************************/
+body {
+  font-size: var(--fs-text-prim);
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    "Open Sans",
+    "Helvetica Neue",
+    sans-serif;
+  background-color: var(--clr-gray-100);
+}
+
+ion-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+/* PAGE-LEVEL LAYOUT */
+.app-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: 100vh;
+}
+
+/* NAVIGATION SECTION */
+.nav {
+  padding: var(--space-400) var(--space-200) 0;
+  background-color: var(--clr-gray-200);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--space-400);
+}
+
+.nav-list {
+  list-style: none;
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+  font-size: var(--fs-text-sec);
+}
+
+.user-details::before {
+  content: "S";
+  display: block;
+  font-size: var(--fs-caption);
+  background-color: var(--clr-primary-800);
+  color: var(--clr-white);
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-140);
+}
 
 /********************************************/
 /* REUSABLE COMPONENTS */
 /********************************************/
+.btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn--create-task {
+}
 
 /********************************************/
 /* UTILITY / HELPER CLASSES */
