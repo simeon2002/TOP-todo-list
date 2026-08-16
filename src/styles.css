@@ -22,6 +22,7 @@
   --clr-gray-700: hsl(120, 6%, 40%);
   --clr-gray-600: hsl(120, 6%, 65%);
   --clr-gray-500: hsl(120, 6%, 80%);
+  --clr-gray-400: hsl(120, 8%, 85%);
   --clr-gray-300: hsl(120, 8%, 90%);
   --clr-gray-200: hsl(120, 8%, 95%);
   --clr-gray-150: hsl(0, 4%, 97%);
@@ -208,6 +209,7 @@ ion-icon {
   gap: var(--space-200);
   padding: var(--space-200) var(--space-400) var(--space-200) var(--space-200);
   border: 1px solid transparent;
+  transition: all 0.5s ease-out;
 }
 
 .task:hover {
@@ -226,19 +228,26 @@ ion-icon {
 
 .task__icon-edit-task {
   flex-shrink: 0;
-  display: none;
+  padding: var(--space-50);
+  visibility: hidden;
+  opacity: 0;
   margin-left: auto;
   cursor: pointer;
+  transition: opacity 0.5s ease-out;
 }
 
 .task:hover .task__icon-edit-task {
-  display: block;
-  padding: var(--space-50);
+  visibility: visible;
+  opacity: 1;
 }
 
 .task:hover .task__icon-edit-task:hover {
   border-radius: 100%;
   background-color: var(--clr-gray-200);
+}
+
+.task:not(:has(~ .task)) {
+  margin-bottom: var(--space-200) !important;
 }
 
 /*  styling checkbox  */
@@ -253,8 +262,10 @@ ion-icon {
   appearance: none;
   width: 1.6rem;
   height: 1.6rem;
-  border: 1px solid var(--clr-gray-600);
+  border: 1px solid var(--clr-gray-400);
   border-radius: 4px;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
 .task__checkbox:checked {
@@ -272,6 +283,8 @@ ion-icon {
   left: 0.1rem;
   transform: translate(0, -40%);
   z-index: 1;
+  transition: all 0.3s;
+  cursor: pointer;
 }
 
 .task__checkbox:checked + .icon-checkmark {
@@ -285,6 +298,10 @@ label:hover:not(:has(.task__checkbox:checked)) .task__checkbox {
 
 label:hover:not(:has(.task__checkbox:checked)) .icon-checkmark {
   visibility: visible;
+}
+
+.project__divider--add-task {
+  margin-bottom: var(--space-100);
 }
 
 /********************************************/
