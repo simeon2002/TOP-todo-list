@@ -42,7 +42,7 @@
       </nav>
       <main class="main-container">
         <article class="project">
-          <h1 class="project__title">Project Title</h1>
+          <h1 class="project__title heading-primary">Project Title</h1>
           <div class="project__divider"></div>
           <div class="project__task-list">
             <div class="task" tabindex="0">
@@ -75,6 +75,45 @@
           </div>
         </article>
       </main>
+      <dialog>
+        <form>
+          <header>
+            <h1 class="heading-primary">New Task</h1>
+            <button type="button" class="btn btn-close-form">
+              <ion-icon class="icon icon--close-btn-form" name="close-outline"></ion-icon>
+            </button>
+          </header>
+          <div class="form-inputs-container">
+            <div class="form-container name-container">
+              <label for="task-name">Name</label>
+              <input type="text" id="task-name" name="task-name" required minlength="1" />
+            </div>
+            <div class="form-container desc-container">
+              <label for="task-desc">Description</label>
+              <textarea name="task-desc" id="task-desc" placeholder="Add a task description here" rows="2" spellcheck="false"></textarea>
+            </div>
+            <div class="form-container date-container">
+              <label for="due-date">Date</label>
+              <input type="date" name="due-date" id="due-date" />
+            </div>
+            <div class="form-container priority-container">
+              <label for="task-priority">Priority</label>
+              <select name="task-priority" id="task-priority">
+                <option value="low" selected>Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+              </select>
+            </div>
+            <div class="form-container tags-container">
+              <label for="task-tags">Tags</label>
+              <input type="text" id="task-tags" name="task-tags" placeholder="e.g. tag1,tag2,tag3" />
+            </div>
+          </div>
+          <div class="submit-container">
+            <button type="submit" class="btn btn--form-submit">Create Task</button>
+          </div>
+        </form>
+      </dialog>
     </div>
   </body>
 </html>
