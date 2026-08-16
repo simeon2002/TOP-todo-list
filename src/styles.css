@@ -18,9 +18,13 @@
   --clr-primary-200: #81de7c;
   --clr-primary-100: hsl(116, 73%, 80%);
   --clr-primary-800: #0d4e0d;
-  --clr-gray-900: #1b1d1b;
-  --clr-gray-500: hsl(120, 6%, 42%);
+  --clr-gray-900: hsl(120, 4%, 11%);
+  --clr-gray-700: hsl(120, 6%, 40%);
+  --clr-gray-600: hsl(120, 6%, 65%);
+  --clr-gray-500: hsl(120, 6%, 80%);
+  --clr-gray-300: hsl(120, 8%, 90%);
   --clr-gray-200: hsl(120, 8%, 95%);
+  --clr-gray-150: hsl(0, 4%, 97%);
   --clr-gray-100: hsl(0, 0%, 99%);
   /* --clr-secondary: */
   /* Add semantic colors later! */
@@ -55,9 +59,9 @@
   --fs-text-prim: var(--fs-400);
   --fs-icon-md: var(--fs-500);
   --fs-text-sec: var(--fs-300);
-  --fs-heading-prim: var(--fs-900);
-  --fs-heading-sec: var(--fs-700);
-  --fs-heading-tert: var(--fs-600);
+  --fs-heading-prim: var(--fs-800);
+  --fs-heading-sec: var(--fs-600);
+  --fs-heading-tert: var(--fs-500);
 
   /* letter spacing */
   /* line heights */
@@ -87,6 +91,7 @@
 /********************************************/
 body {
   font-size: var(--fs-text-prim);
+  color: var(--clr-gray-900);
   font-family:
     "Inter",
     system-ui,
@@ -171,15 +176,115 @@ ion-icon {
   background-color: var(--clr-primary-100);
 }
 
-.btn--create-task {
-  color: var(--clr-primary-600);
-  display: flex;
-  align-items: center;
-  gap: var(--space-100);
+/* MAIN VIEW SECTION */
+
+.project {
+  width: min(90%, 80rem);
+  margin: 0 auto;
+  padding: var(--space-800) var(--space-400) var(--space-200);
 }
 
-.btn--create-task:hover {
-  color: var(--clr-primary-400);
+.project__title {
+  font-size: var(--fs-heading-prim);
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.5px;
+  margin-bottom: var(--space-200);
+}
+
+.project__divider {
+  height: 2px;
+  background-color: var(--clr-gray-200);
+  margin-bottom: var(--space-400);
+}
+
+.project__task-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: var(--space-200);
+  padding: var(--space-200) var(--space-400) var(--space-200) var(--space-200);
+  border: 1px solid transparent;
+}
+
+.task:hover {
+  cursor: pointer;
+  background-color: var(--clr-white);
+  border-radius: 9px;
+  border: 1px solid var(--clr-gray-200);
+  box-shadow: 0 0.6rem 0.5rem -0.7rem hsla(0, 0%, 0%, 0.088);
+  color: var(--clr-primary-800);
+}
+
+.task__title {
+  font-size: var(--fs-text-prim);
+  font-weight: var(--fw-semi-bold);
+}
+
+.task__icon-edit-task {
+  flex-shrink: 0;
+  display: none;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.task:hover .task__icon-edit-task {
+  display: block;
+  padding: var(--space-50);
+}
+
+.task:hover .task__icon-edit-task:hover {
+  border-radius: 100%;
+  background-color: var(--clr-gray-200);
+}
+
+/*  styling checkbox  */
+.task label {
+  position: relative;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.task__checkbox {
+  flex-shrink: 0;
+  appearance: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid var(--clr-gray-600);
+  border-radius: 4px;
+}
+
+.task__checkbox:checked {
+  background-color: var(--clr-primary-600);
+}
+
+.icon-checkmark {
+  visibility: hidden;
+  position: absolute;
+  color: var(--clr-gray-100);
+  left: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  top: 50%;
+  left: 0.1rem;
+  transform: translate(0, -40%);
+  z-index: 1;
+}
+
+.task__checkbox:checked + .icon-checkmark {
+  visibility: visible;
+}
+
+/* State where label is hovered while checkbox is already checked */
+label:hover:not(:has(.task__checkbox:checked)) .task__checkbox {
+  background-color: var(--clr-gray-300);
+}
+
+label:hover:not(:has(.task__checkbox:checked)) .icon-checkmark {
+  visibility: visible;
 }
 
 /********************************************/
@@ -192,6 +297,17 @@ ion-icon {
   text-transform: capitalize;
   padding: var(--space-50) var(--space-140);
   transition: all 0.3s ease-in;
+}
+
+.btn--create-task {
+  color: var(--clr-primary-600);
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+}
+
+.btn--create-task:hover {
+  color: var(--clr-primary-400);
 }
 
 /********************************************/
