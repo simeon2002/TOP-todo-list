@@ -1,7 +1,4 @@
 import "./styles.css";
+import AppController from "./controller.js";
 
-const taskDialog = document.querySelector("dialog");
-
-console.log(taskDialog);
-
-taskDialog.showModal();
+new AppController();
