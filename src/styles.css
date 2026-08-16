@@ -9,7 +9,14 @@
 
   /*****  COLORS (primary, secondary, accents and greys) *****/
   --clr-white: #fff;
-  --clr-primary: #32cd32;
+  --clr-primary-800: #032303;
+  --clr-primary-700: #1b7e1b;
+  --clr-primary-600: #229822;
+  --clr-primary-500: #32cd32;
+  --clr-primary-400: #53d34f;
+  --clr-primary-300: #6cd867;
+  --clr-primary-200: #81de7c;
+  --clr-primary-100: hsl(116, 73%, 80%);
   --clr-primary-800: #0d4e0d;
   --clr-gray-900: #1b1d1b;
   --clr-gray-500: hsl(120, 6%, 42%);
@@ -46,6 +53,7 @@
   /* semantic font names */
   --fs-caption: var(--fs-200);
   --fs-text-prim: var(--fs-400);
+  --fs-icon-md: var(--fs-500);
   --fs-text-sec: var(--fs-300);
   --fs-heading-prim: var(--fs-900);
   --fs-heading-sec: var(--fs-700);
@@ -96,8 +104,7 @@ body {
 }
 
 ion-icon {
-  width: 2.4rem;
-  height: 2.4rem;
+  font-size: var(--fs-icon-md);
 }
 
 /* PAGE-LEVEL LAYOUT */
@@ -109,16 +116,16 @@ ion-icon {
 
 /* NAVIGATION SECTION */
 .nav {
-  padding: var(--space-400) var(--space-200) 0;
+  padding: var(--space-400) var(--space-400) 0;
   background-color: var(--clr-gray-200);
   display: flex;
   flex-direction: column;
-  align-items: start;
   gap: var(--space-400);
 }
 
 .nav-list {
   list-style: none;
+  text-transform: capitalize;
 }
 
 .user-details {
@@ -147,6 +154,34 @@ ion-icon {
   gap: var(--space-140);
 }
 
+.nav-item {
+  border-radius: 6px;
+}
+
+.nav-item .btn:not(.btn--create-task) {
+  width: 100%;
+  text-align: left;
+  border-radius: 8px;
+  transition: background-color 0.3s ease-in;
+}
+
+.nav-item .btn:not(.btn--create-task):hover {
+  width: 100%;
+  text-align: left;
+  background-color: var(--clr-primary-100);
+}
+
+.btn--create-task {
+  color: var(--clr-primary-600);
+  display: flex;
+  align-items: center;
+  gap: var(--space-100);
+}
+
+.btn--create-task:hover {
+  color: var(--clr-primary-400);
+}
+
 /********************************************/
 /* REUSABLE COMPONENTS */
 /********************************************/
@@ -154,9 +189,9 @@ ion-icon {
   background: none;
   border: none;
   cursor: pointer;
-}
-
-.btn--create-task {
+  text-transform: capitalize;
+  padding: var(--space-50) var(--space-140);
+  transition: all 0.3s ease-in;
 }
 
 /********************************************/
