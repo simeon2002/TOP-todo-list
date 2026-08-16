@@ -12,7 +12,7 @@ export default class AppController {
 
   handlePagleLoad(e) {
     console.log(this.app);
-    const inboxProject = this.app.getProjectByName("inbox");
+    const inboxProject = this.app.inbox;
 
     //display inbox with populated tasks
     this.view.renderProjectView(inboxProject);

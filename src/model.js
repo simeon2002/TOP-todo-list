@@ -18,7 +18,6 @@ class Project {
   }
 
   get name() {
-    console.log(this.#name);
     return this.#name;
   }
 
@@ -80,26 +79,26 @@ class Task {
 
 class App {
   #projects = [];
+  #inbox = new Project("inbox");
 
   constructor() {
-    this.createProject({ name: "inbox" });
-    const inbox = this.#projects[0];
-    inbox.createTask({
-      name: "task 1",
-      priority: "low",
-    });
-    inbox.createTask({
-      name: "task 2",
-      priority: "medium",
-    });
-    inbox.createTask({
-      name: "task 3",
-      priority: "low",
-    });
-    inbox.createTask({
-      name: "task 4",
-      priority: "high",
-    });
+    this.generateDummyData(this.#inbox);
+    this.createProject({ name: "First project" });
+    this.createProject({ name: "Second project" });
+    this.createProject({ name: "Third Project project" });
+    console.log(this.#projects);
+
+    this.#projects.forEach(this.generateDummyData);
+  }
+
+  generateDummyData(project, taskCount = Math.floor(Math.random() * 5 + 1)) {
+    console.log(taskCount);
+    for (let i = 0; i < taskCount; i++) {
+      project.createTask({
+        name: `task ${Math.floor(Math.random() * 20 + 1)}`,
+        priority: "low",
+      });
+    }
   }
 
   createProject({ name, color }) {
@@ -117,6 +116,10 @@ class App {
 
   getProjectByName(name) {
     return this.#projects.filter(project => name === project.name)[0];
+  }
+
+  get inbox() {
+    return this.#inbox;
   }
 }
 
