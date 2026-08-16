@@ -11,13 +11,12 @@ export default class AppController {
   }
 
   handlePagleLoad(e) {
-    // create inbox project
-    this.app.createProject({ name: "Test" });
     console.log(this.app);
 
     //display inbox with populated tasks
-    this.view.displayView();
+    // this.view.displayProjectView();
 
     // display available projects in sidebar
+    // this.view.displayProjectsSidebar();
   }
 }
