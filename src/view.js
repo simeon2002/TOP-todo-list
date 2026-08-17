@@ -63,6 +63,10 @@ class View {
     });
   }
 
+  addBtnRemoveTaskHandler(handler) {
+    this.#projectContainer.addEventListener("click", handler);
+  }
+
   closeOpenedTaskmenu() {
     const btnsTaskDetails = this.#projectContainer.querySelectorAll(".btn--task-details");
 
@@ -133,8 +137,8 @@ class View {
                   <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
                 </button>
                 <menu class="task-actions-menu">
-                  <button class="btn btn--task-action">Edit Task</button>
-                  <button class="btn btn--task-action">Delete Task</button>
+                  <button class="btn btn--task-action btn--task-edit">Edit Task</button>
+                  <button class="btn btn--task-action btn--task-delete">Delete Task</button>
                 </menu>
               </div>
             </div>

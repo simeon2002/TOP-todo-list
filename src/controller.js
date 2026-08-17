@@ -12,6 +12,7 @@ export default class AppController {
     this.view.addBtnAddTaskHandler(this.handleAddTaskBtnClick.bind(this), "click");
     this.view.addBtnFormSubmitHandler(this.handleBtnFormSubmit.bind(this), "submit");
     this.view.addBtnEditTaskHandler(this.handleEditTaskBtnClick.bind(this));
+    this.view.addBtnRemoveTaskHandler(this.handleRemoveTaskBtnClick.bind(this));
   }
 
   handlePagleLoad(e) {
@@ -114,7 +115,7 @@ export default class AppController {
   }
 
   handleEditTaskBtnClick(e) {
-    const editTaskBtn = e.target.closest(".btn--task-action");
+    const editTaskBtn = e.target.closest(".btn--task-edit");
     if (!editTaskBtn) return;
 
     // fetch task details
@@ -125,5 +126,23 @@ export default class AppController {
 
     // render populated edit form
     this.view.renderForm("editTask", { projects, task });
+  }
+
+  handleRemoveTaskBtnClick(e) {
+    const deleteTaskBtn = e.target.closest(".btn--task-delete");
+    if (!deleteTaskBtn) return;
+
+    // confirmation window
+    const confirmDeletion = confirm("Are you sure you want to delete the task?");
+
+    if (!confirmDeletion) return;
+
+    // if yes -> remove task from projects
+    const currentProject = this.app.getProjectById(this.view.getCurrentProjectId());
+    const taskId = e.target.closest(".task").dataset.taskId;
+    currentProject.removeTask(taskId);
+
+    // update task list
+    this.view.renderTaskList(currentProject.tasks);
   }
 }

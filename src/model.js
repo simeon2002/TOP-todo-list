@@ -9,7 +9,10 @@ class Project {
     this.#name = name;
   }
 
-  removeTask(taskId) {}
+  removeTask(taskId) {
+    const taskIndex = this.#tasks.findIndex(task => task === taskId);
+    console.log(this.#tasks.splice(taskIndex, 1));
+  }
 
   updateTask(taskId, taskInfo) {
     this.getTaskById(taskId).update(taskInfo);
