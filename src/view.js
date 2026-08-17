@@ -93,6 +93,13 @@ class View {
     // project id set in project article el
     this.setProjectId(project.id);
 
+    // remove children besides add task container
+    const projectChildren = [...this.#projectContainer.children];
+    projectChildren.forEach(child => {
+      if (child.classList.contains("add-task-container")) return;
+      child.remove();
+    });
+
     // insert project markup
     this.#projectContainer.insertAdjacentHTML("afterbegin", html);
   }
@@ -197,6 +204,8 @@ class View {
     // Display all project options
     const projectControlEl = this.#taskForm.querySelector("#project");
     const html = this.generateProjectControlMarkup(projects, projectControlEl);
+
+    // remove children
     projectControlEl.innerHTML = "";
     projectControlEl.insertAdjacentHTML("afterbegin", html);
   }
