@@ -47,7 +47,7 @@ export default class AppController {
   }
 
   handleAddTaskBtnClick(e) {
-    this.view.renderForm("task");
+    this.view.renderForm(this.app.projects, "task");
   }
 
   handleBtnFormSubmit(e) {

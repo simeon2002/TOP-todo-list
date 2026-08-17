@@ -21,8 +21,6 @@ class View {
 
   addBtnAddTaskHandler(handler, eventType = "click") {
     this.#btnAddTasks.forEach(btn => {
-      console.log(btn);
-
       btn.addEventListener(eventType, handler);
     });
   }
@@ -92,16 +90,18 @@ class View {
 
       // Display all project options
       const projectControlEl = this.#taskForm.querySelector("#project");
-      console.log(projectControlEl);
+      const html = this.generateProjectControlMarkup(projects, projectControlEl);
+      projectControlEl.innerHTML = "";
+      projectControlEl.insertAdjacentHTML("afterbegin", html);
     }
   }
 
-  populateProjectControl(projects, projectControlEl) {
-    const html = this.projectOptionMarkup();
+  generateProjectControlMarkup(projects) {
+    return projects.map(this.projectOptionMarkup).join("");
   }
 
-  projectOptionMarkup(projects) {
-    return `<option value=${project.id}`;
+  projectOptionMarkup(project) {
+    return `<option value=${project.id} ${project.name === "inbox" ? "selected" : ""}>${project.name}</option>`;
   }
 }
 

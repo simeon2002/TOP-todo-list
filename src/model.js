@@ -89,13 +89,11 @@ class App {
     this.createProject({ name: "First project" });
     this.createProject({ name: "Second project" });
     this.createProject({ name: "Third Project project" });
-    console.log(this.#projects);
 
     this.#projects.forEach(project => this.generateDummyData(project));
   }
 
   generateDummyData(project, taskCount = Math.floor(Math.random() * 5 + 1)) {
-    console.log(project, taskCount);
     for (let i = 0; i < taskCount; i++) {
       project.createTask({
         name: `task ${Math.floor(Math.random() * 20 + 1)}`,
