@@ -178,6 +178,10 @@ class View {
     const dialog = this.#taskForm.parentElement;
     dialog.showModal();
 
+    // place focus on name input field
+    const taskNameField = this.#taskForm.elements["task-name"];
+    taskNameField.focus();
+
     // Display all project options
     const projectControlEl = this.#taskForm.querySelector("#project");
     const html = this.generateProjectControlMarkup(projects, projectControlEl);
