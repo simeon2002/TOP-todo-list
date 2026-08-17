@@ -9,6 +9,7 @@ export default class AppController {
     // adding event handlers for DOM events.
     this.view.addPageLoadHandler(this.handlePagleLoad.bind(this));
     this.view.addBtnProjectsHandler(this.handleBtnProjectsClick.bind(this));
+    this.view.addBtnAddTaskHandler(this.handleAddTaskBtnClick.bind(this), "click");
   }
 
   handlePagleLoad(e) {
@@ -42,5 +43,9 @@ export default class AppController {
 
     // toggle button classes for chevron and bg color
     toggleButtonClass(btnProjects);
+  }
+
+  handleAddTaskBtnClick(e) {
+    this.view.renderForm("task");
   }
 }

@@ -2,8 +2,11 @@ import { capacitlizeString } from "./utils.js";
 
 class View {
   #mainContainer = document.querySelector(".main-container");
+  #projectContainer = document.querySelector(".project");
   #btnProjects = document.querySelector(".btn--projects");
+  #btnAddTasks = document.querySelectorAll(".btn--create-task");
   #projectList = document.querySelector(".project-list");
+  #taskForm = document.querySelector(".task-form");
 
   constructor() {}
 
@@ -15,26 +18,26 @@ class View {
     this.#btnProjects.addEventListener(eventType, handler);
   }
 
+  addBtnAddTaskHandler(handler, eventType = "click") {
+    this.#btnAddTasks.forEach(btn => {
+      console.log(btn);
+
+      btn.addEventListener(eventType, handler);
+    });
+  }
+
   renderProjectView(project) {
     const html = this.generateProjectMarkup(project);
-    this.#mainContainer.insertAdjacentHTML("afterbegin", html);
+    this.#projectContainer.insertAdjacentHTML("afterbegin", html);
   }
 
   generateProjectMarkup(project) {
     return `
-        <article class="project">
           <h1 class="project__title heading-primary">${capacitlizeString(project.name)}</h1>
           <div class="project__divider"></div>
           <div class="project__task-list">
             ${project.tasks.map(this.generateTaskMarkup).join("")}
-            <div class="add-task-container">
-              <div class="project__divider project__divider--add-task"></div>
-              <button class="btn btn--create-task">
-                <ion-icon class="icon-add-task" name="add-outline"></ion-icon><span>Add task</span>
-              </button>
-            </div>
           </div>
-        </article>
     `;
   }
 
@@ -61,6 +64,18 @@ class View {
     const html = projects.map(generateProjectItemMarkup).join("");
     this.#projectList.innerHTML = "";
     this.#projectList.insertAdjacentHTML("afterbegin", html);
+  }
+
+  renderForm(type = "task") {
+    if (type === "task") {
+      // add class to render form
+      this.#taskForm.classList.add("show-form");
+      // TODO: remove show-form from project form.
+
+      // open dialog window
+      const dialog = this.#taskForm.parentElement;
+      dialog.showModal();
+    }
   }
 }
 

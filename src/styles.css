@@ -351,6 +351,14 @@ dialog {
   width: 40%;
 }
 
+form {
+  display: none;
+}
+
+.show-form {
+  display: block;
+}
+
 dialog::backdrop {
   backdrop-filter: blur(1.5px);
 }
@@ -364,7 +372,7 @@ dialog::backdrop {
   color: var(--clr-red);
 }
 
-header {
+form header {
   display: flex;
   align-items: center;
   margin-bottom: var(--space-300);
@@ -453,6 +461,7 @@ form h1 {
 
 .btn--form-submit {
   width: 100%;
+  font-weight: var(--fw-bold);
   color: var(--clr-white);
   background-color: var(--clr-primary-600);
   border-radius: 8px;
