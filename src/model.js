@@ -146,7 +146,11 @@ class App {
   }
 
   get projects() {
-    return this.#projects;
+    return this.#projects.filter(project => project.name !== "inbox");
+  }
+
+  getInbox() {
+    return this.#projects.find(project => project.name === "inbox");
   }
 
   getProjectNames() {
