@@ -18,11 +18,11 @@ export default class AppController {
     //display inbox with populated tasks
     this.view.renderProjectView(inboxProject);
 
-    // Get project names
-    const projectNames = this.app.getProjectNames();
+    // Get projects
+    const projects = this.app.projects;
 
     // display available projects in sidebar
-    this.view.renderProjectsInSidebar(projectNames);
+    this.view.renderProjectsInSidebar(projects);
   }
 
   handleBtnProjectsClick(e) {

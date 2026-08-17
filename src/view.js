@@ -54,11 +54,11 @@ class View {
     return html;
   }
 
-  renderProjectsInSidebar(projectNames) {
-    const generateProjectItemMarkup = projectName =>
-      `<li class="item project-item"><button class="btn btn--nav">${projectName}</button></li>`;
+  renderProjectsInSidebar(projects) {
+    const generateProjectItemMarkup = project =>
+      `<li class="item project-item" data-project-id=${project.id}><button class="btn btn--nav">${project.name}</button></li>`;
 
-    const html = projectNames.map(generateProjectItemMarkup).join("");
+    const html = projects.map(generateProjectItemMarkup).join("");
     this.#projectList.innerHTML = "";
     this.#projectList.insertAdjacentHTML("afterbegin", html);
   }

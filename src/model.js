@@ -24,6 +24,10 @@ class Project {
   get tasks() {
     return this.#tasks;
   }
+
+  get id() {
+    return this.#id;
+  }
 }
 
 class Task {
@@ -116,6 +120,10 @@ class App {
 
   getProjectByName(name) {
     return this.#projects.filter(project => name === project.name)[0];
+  }
+
+  get projects() {
+    return this.#projects;
   }
 
   getProjectNames() {
