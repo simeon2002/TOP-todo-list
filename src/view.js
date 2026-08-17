@@ -6,12 +6,14 @@ class View {
   #btnProjects = document.querySelector(".btn--projects");
   #btnAddTasks = document.querySelectorAll(".btn--create-task");
   #btnSubmitForm = document.querySelector(".btn--form-submit");
+  #btnCloseForm = document.querySelector(".btn--close-form");
   #projectList = document.querySelector(".project-list");
   #taskForm = document.querySelector(".task-form");
 
   constructor() {
     // events that don't modify any state
     this.#addBtnTaskDetailsHandler();
+    this.addBtnCloseHandler();
   }
 
   addPageLoadHandler(handler) {
@@ -65,6 +67,12 @@ class View {
 
   addBtnRemoveTaskHandler(handler) {
     this.#projectContainer.addEventListener("click", handler);
+  }
+
+  addBtnCloseHandler() {
+    this.#btnCloseForm.addEventListener("click", e => {
+      this.#taskForm.parentElement.close();
+    });
   }
 
   closeOpenedTaskmenu() {

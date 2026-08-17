@@ -502,7 +502,7 @@ form h1 {
   transition: background-color 0.1s;
 }
 
-.btn-close-form {
+.btn--close-form {
   padding: 0;
 }
 
