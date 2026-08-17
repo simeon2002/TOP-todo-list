@@ -1,17 +1,23 @@
 import { capacitlizeString } from "./utils.js";
 
 class View {
-  constructor() {
-    this.mainContainer = document.querySelector(".main-container");
-  }
+  #mainContainer = document.querySelector(".main-container");
+  #btnProjects = document.querySelector(".btn--projects");
+  #projectList = document.querySelector(".project-list");
+
+  constructor() {}
 
   addPageLoadHandler(handler) {
     document.addEventListener("DOMContentLoaded", handler);
   }
 
+  addBtnProjectsHandler(handler, eventType = "click") {
+    this.#btnProjects.addEventListener(eventType, handler);
+  }
+
   renderProjectView(project) {
     const html = this.generateProjectMarkup(project);
-    this.mainContainer.insertAdjacentHTML("afterbegin", html);
+    this.#mainContainer.insertAdjacentHTML("afterbegin", html);
   }
 
   generateProjectMarkup(project) {
@@ -48,7 +54,14 @@ class View {
     return html;
   }
 
-  displayProjectsSidebar() {}
+  renderProjectsInSidebar(projectNames) {
+    const generateProjectItemMarkup = projectName =>
+      `<li class="item project-item"><button class="btn btn--nav">${projectName}</button></li>`;
+
+    const html = projectNames.map(generateProjectItemMarkup).join("");
+    this.#projectList.innerHTML = "";
+    this.#projectList.insertAdjacentHTML("afterbegin", html);
+  }
 }
 
 export { View };

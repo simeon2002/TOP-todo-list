@@ -22,20 +22,28 @@
           </div>
         </div>
         <div class="nav-container">
-          <ul class="nav-list">
-            <li class="nav-item">
+          <ul class="list nav-list">
+            <li class="item nav-item">
               <button class="btn btn--create-task">
                 <ion-icon class="icon-add-task" name="add-outline"></ion-icon><span>Add task</span>
               </button>
             </li>
-            <li class="nav-item">
+            <li class="item nav-item">
               <button type="button" class="btn btn--nav">Inbox</button>
             </li>
-            <li class="nav-item">
+            <li class="item nav-item">
               <button type="button" class="btn btn--nav">All Tasks</button>
             </li>
-            <li class="nav-item">
-              <button type="button" class="btn btn--nav btn--projects">Projects</button>
+            <li class="item nav-item">
+              <button type="button" class="btn btn--nav btn--projects">
+                <span>Projects</span> <ion-icon class="icon icon--chevron" name="chevron-down-outline"></ion-icon>
+              </button>
+              <div class="project-list-container">
+                <ul class="list project-list">
+                  <!-- <li class="item project-item"><button class="btn btn--nav">Project Name</button></li>
+                  <li class="item project-item"><button class="btn btn--nav">Project Name</button></li> -->
+                </ul>
+              </div>
             </li>
           </ul>
         </div>

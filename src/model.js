@@ -118,6 +118,9 @@ class App {
     return this.#projects.filter(project => name === project.name)[0];
   }
 
+  getProjectNames() {
+    return this.#projects.map(project => project.name);
+  }
   get inbox() {
     return this.#inbox;
   }
