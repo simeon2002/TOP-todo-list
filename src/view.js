@@ -41,7 +41,7 @@ class View {
 
   addTask(task) {
     const taskList = this.#projectContainer.querySelector(".project__task-list");
-    taskList.append(this.generateTaskMarkup(task));
+    taskList.insertAdjacentHTML("beforeend", this.generateTaskMarkup(task));
   }
 
   setProjectId(projectId) {

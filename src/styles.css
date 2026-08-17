@@ -247,7 +247,7 @@ ion-icon {
   gap: var(--space-200);
   padding: var(--space-200) var(--space-400) var(--space-200) var(--space-200);
   border: 1px solid transparent;
-  transition: all 0.5s ease-out;
+  transition: background-color 0.5s ease-out;
 }
 
 .task:hover {
