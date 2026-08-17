@@ -264,18 +264,20 @@ ion-icon {
   font-weight: var(--fw-semi-bold);
 }
 
-.btn.btn--task-details {
+.details-dropdown {
   flex-shrink: 0;
-  align-self: center;
-  justify-self: center;
+  margin-left: auto;
+  position: relative;
+}
+
+.btn.btn--task-details {
   padding: var(--space-50);
   visibility: hidden;
   opacity: 0;
-  margin-left: auto;
   border-radius: 50%;
 }
 
-ion-icon {
+.btn--task-details ion-icon {
   display: block !important;
 }
 
@@ -349,24 +351,23 @@ label:hover:not(:has(.task__checkbox:checked)) .icon-checkmark {
 /* Task actions menu */
 .task-actions-menu {
   display: none;
+  position: absolute;
   flex-direction: column;
-  max-width: fit-content;
   border-radius: 4px;
   background-color: var(--clr-gray-300);
+  width: max-content;
 }
 
-.task-actions-menu--open {
+.task:has(.btn--task-details--open) .task-actions-menu {
   display: flex;
 }
 
-body:has(.user-details__user-name:focus) .task-actions-menu {
-  background-color: yellow !important;
-}
-
 .btn.btn--task-action {
+  display: block;
   color: var(--clr-gray-900);
   font-size: var(--fs-text-sec);
   padding: var(--space-100) var(--space-200);
+  width: 100%;
 }
 
 .btn--task-action:hover {

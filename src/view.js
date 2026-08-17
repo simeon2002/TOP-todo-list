@@ -9,7 +9,10 @@ class View {
   #projectList = document.querySelector(".project-list");
   #taskForm = document.querySelector(".task-form");
 
-  constructor() {}
+  constructor() {
+    // events that don't modify any state
+    this.addBtnTaskDetailsHandler();
+  }
 
   addPageLoadHandler(handler) {
     document.addEventListener("DOMContentLoaded", handler);
@@ -27,6 +30,27 @@ class View {
 
   addBtnFormSubmitHandler(handler, eventType = "click") {
     this.#taskForm.addEventListener(eventType, handler);
+  }
+
+  addBtnTaskDetailsHandler() {
+    document.body.addEventListener("click", e => {
+      const btn = e.target.closest(".btn--task-details");
+      this.closeOpenedTaskmenu();
+
+      if (!btn) {
+        return;
+      }
+      btn.classList.add("btn--task-details--open");
+    });
+  }
+
+  closeOpenedTaskmenu() {
+    const btnsTaskDetails = this.#projectContainer.querySelectorAll(".btn--task-details");
+
+    btnsTaskDetails.forEach(btn => {
+      console.log(btn);
+      btn.classList.remove("btn--task-details--open");
+    });
   }
 
   renderProjectView(project) {
@@ -67,7 +91,8 @@ class View {
   }
 
   generateTaskMarkup(task) {
-    const html = `<div class="task" tabindex="0">
+    const html = `
+            <div class="task" tabindex="0" data-task-id=${task.id}>
               <label
                 ><input class="task__checkbox" type="checkbox" ${task.checked ? "checked" : ""}/><ion-icon
                   class="icon icon-checkmark"
@@ -76,9 +101,15 @@ class View {
                 ></ion-icon
               ></label>
               <h2 class="heading-secondary task__title">${capacitlizeString(task.name)}</h2>
-              <button type="button" class="btn btn--task-details">
-                <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
-              </button>
+              <div class="details-dropdown">
+                <button type="button" class="btn btn--task-details">
+                  <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
+                </button>
+                <menu class="task-actions-menu">
+                  <button class="btn btn--task-action">Edit Task</button>
+                  <button class="btn btn--task-action">Delete Task</button>
+                </menu>
+              </div>
             </div>
             `;
     return html;
@@ -127,6 +158,8 @@ class View {
       this.#taskForm.reset();
     }
   }
+
+  showTaskActionsMenu() {}
 }
 
 export { View };
