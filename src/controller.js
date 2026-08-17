@@ -13,6 +13,7 @@ export default class AppController {
     this.view.addBtnFormSubmitHandler(this.handleBtnFormSubmit.bind(this), "submit");
     this.view.addBtnEditTaskHandler(this.handleEditTaskBtnClick.bind(this));
     this.view.addBtnRemoveTaskHandler(this.handleRemoveTaskBtnClick.bind(this));
+    this.view.addProjectItemClicked(this.handleProjectItemClick.bind(this));
   }
 
   handlePagleLoad(e) {
@@ -33,7 +34,6 @@ export default class AppController {
     const toggleButtonClass = el => {
       if (!el.classList.contains("btn--closed") && !el.classList.contains("btn--open")) {
         el.classList.add("btn--open");
-        console.log(el.className);
         return;
       }
 
@@ -49,7 +49,9 @@ export default class AppController {
   }
 
   handleAddTaskBtnClick(e) {
-    this.view.renderForm("createTask", { projects: this.app.projects });
+    console.log(this.app.getInbox());
+
+    this.view.renderForm("createTask", { projects: [...this.app.projects, this.app.getInbox()] });
   }
 
   handleBtnFormSubmit(e) {
@@ -123,9 +125,11 @@ export default class AppController {
     const projectId = this.view.getCurrentProjectId();
     const task = this.app.getProjectById(projectId).getTaskById(taskId);
     const projects = this.app.projects;
+    const inbox = this.app.getInbox();
+    console.log(inbox);
 
     // render populated edit form
-    this.view.renderForm("editTask", { projects, task });
+    this.view.renderForm("editTask", { projects: [...projects, inbox], task });
   }
 
   handleRemoveTaskBtnClick(e) {
@@ -144,5 +148,15 @@ export default class AppController {
 
     // update task list
     this.view.renderTaskList(currentProject.tasks);
+  }
+
+  handleProjectItemClick(e) {
+    console.log(e.target);
+    const projectItemBtn = e.target.closest(".btn--project-item");
+    if (!projectItemBtn) return;
+    const projectId = projectItemBtn.parentElement.dataset.projectId;
+
+    // display new project view
+    this.view.renderProjectView(this.app.getProjectById(projectId));
   }
 }

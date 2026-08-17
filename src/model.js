@@ -24,7 +24,11 @@ class Project {
   }
 
   getTaskById(taskId) {
-    return this.#tasks.find(task => task.id === taskId);
+    return this.#tasks.find(task => {
+      console.log(task.id === taskId);
+
+      return task.id === taskId;
+    });
   }
 
   get name() {
@@ -110,9 +114,10 @@ class App {
     this.createProject({ name: "inbox" });
     this.createProject({ name: "First project" });
     this.createProject({ name: "Second project" });
-    this.createProject({ name: "Third Project project" });
+    this.createProject({ name: "Third Project" });
 
     this.#projects.forEach(project => this.generateDummyData(project));
+    console.log(this.#projects);
   }
 
   generateDummyData(project, taskCount = Math.floor(Math.random() * 5 + 1)) {

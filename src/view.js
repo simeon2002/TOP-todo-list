@@ -75,6 +75,10 @@ class View {
     });
   }
 
+  addProjectItemClicked(handler) {
+    this.#projectList.addEventListener("click", handler);
+  }
+
   closeOpenedTaskmenu() {
     const btnsTaskDetails = this.#projectContainer.querySelectorAll(".btn--task-details");
 
@@ -156,7 +160,7 @@ class View {
 
   renderProjectsInSidebar(projects) {
     const generateProjectItemMarkup = project =>
-      `<li class="item project-item" data-project-id=${project.id}><button class="btn btn--nav">${project.name}</button></li>`;
+      `<li class="item project-item" data-project-id=${project.id}><button class="btn btn--nav btn--project-item">${project.name}</button></li>`;
 
     const html = projects.map(generateProjectItemMarkup).join("");
     this.#projectList.innerHTML = "";
