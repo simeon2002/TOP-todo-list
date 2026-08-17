@@ -264,23 +264,27 @@ ion-icon {
   font-weight: var(--fw-semi-bold);
 }
 
-.task__icon-edit-task {
+.btn.btn--task-details {
   flex-shrink: 0;
+  align-self: center;
+  justify-self: center;
   padding: var(--space-50);
   visibility: hidden;
   opacity: 0;
   margin-left: auto;
-  cursor: pointer;
-  transition: opacity 0.5s ease-out;
+  border-radius: 50%;
 }
 
-.task:hover .task__icon-edit-task {
+ion-icon {
+  display: block !important;
+}
+
+.task:hover .btn--task-details {
   visibility: visible;
   opacity: 1;
 }
 
-.task:hover .task__icon-edit-task:hover {
-  border-radius: 100%;
+.task:hover .btn--task-details:hover {
   background-color: var(--clr-gray-200);
 }
 

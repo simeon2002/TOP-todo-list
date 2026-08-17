@@ -76,7 +76,9 @@ class View {
                 ></ion-icon
               ></label>
               <h2 class="heading-secondary task__title">${capacitlizeString(task.name)}</h2>
-              <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
+              <button type="button" class="btn btn--task-details">
+                <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
+              </button>
             </div>
             `;
     return html;
