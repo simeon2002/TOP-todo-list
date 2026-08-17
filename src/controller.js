@@ -11,6 +11,7 @@ export default class AppController {
     this.view.addBtnProjectsHandler(this.handleBtnProjectsClick.bind(this));
     this.view.addBtnAddTaskHandler(this.handleAddTaskBtnClick.bind(this), "click");
     this.view.addBtnFormSubmitHandler(this.handleBtnFormSubmit.bind(this), "submit");
+    this.view.addBtnEditTaskHandler(this.handleEditTaskBtnClick.bind(this));
   }
 
   handlePagleLoad(e) {
@@ -78,5 +79,11 @@ export default class AppController {
 
     // close form
     this.view.closeForm();
+  }
+
+  handleEditTaskBtnClick(e) {
+    const editTaskBtn = e.target.closest(".btn--task-action");
+    if (!editTaskBtn) return;
+    console.log(editTaskBtn);
   }
 }

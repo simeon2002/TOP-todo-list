@@ -11,7 +11,7 @@ class View {
 
   constructor() {
     // events that don't modify any state
-    this.addBtnTaskDetailsHandler();
+    this.#addBtnTaskDetailsHandler();
   }
 
   addPageLoadHandler(handler) {
@@ -32,15 +32,35 @@ class View {
     this.#taskForm.addEventListener(eventType, handler);
   }
 
-  addBtnTaskDetailsHandler() {
+  #addBtnTaskDetailsHandler() {
     document.body.addEventListener("click", e => {
       const btn = e.target.closest(".btn--task-details");
+      const isTaskDetailsBtnClickedAgain = btn => {
+        btn && btn.classList.contains("btn--task-details--open");
+      };
+
+      // case: button clicked again
+      if (isTaskDetailsBtnClickedAgain(btn)) {
+        btn.classList.remove("btn--task-details--open");
+        return;
+      }
+
+      // case: outside of button clicked
       this.closeOpenedTaskmenu();
 
       if (!btn) {
+        console.log("test");
         return;
       }
+
+      // case: button clicked for the first time
       btn.classList.add("btn--task-details--open");
+    });
+  }
+
+  addBtnEditTaskHandler(handler) {
+    this.#projectContainer.addEventListener("click", e => {
+      handler(e);
     });
   }
 
@@ -48,7 +68,6 @@ class View {
     const btnsTaskDetails = this.#projectContainer.querySelectorAll(".btn--task-details");
 
     btnsTaskDetails.forEach(btn => {
-      console.log(btn);
       btn.classList.remove("btn--task-details--open");
     });
   }

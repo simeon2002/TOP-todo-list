@@ -356,6 +356,7 @@ label:hover:not(:has(.task__checkbox:checked)) .icon-checkmark {
   border-radius: 4px;
   background-color: var(--clr-gray-300);
   width: max-content;
+  z-index: 1;
 }
 
 .task:has(.btn--task-details--open) .task-actions-menu {
