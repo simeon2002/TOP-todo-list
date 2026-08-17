@@ -179,10 +179,12 @@ class View {
       priority: "task-priority",
       tags: "task-tags",
     };
-    console.log(task);
 
+    // modify taskform title
+    this.#taskForm.querySelector("h1").textContent = "Edit Task";
+
+    // populate task controls
     const inputControls = [...this.#taskForm.elements];
-
     for (const [field, name] of Object.entries(fieldMap)) {
       this.#taskForm.elements[name].value = task[field];
     }
