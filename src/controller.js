@@ -10,6 +10,7 @@ export default class AppController {
     this.view.addPageLoadHandler(this.handlePagleLoad.bind(this));
     this.view.addBtnProjectsHandler(this.handleBtnProjectsClick.bind(this));
     this.view.addBtnAddTaskHandler(this.handleAddTaskBtnClick.bind(this), "click");
+    this.view.addBtnFormSubmitHandler(this.handleBtnFormSubmitClick.bind(this), "click");
   }
 
   handlePagleLoad(e) {
@@ -47,5 +48,16 @@ export default class AppController {
 
   handleAddTaskBtnClick(e) {
     this.view.renderForm("task");
+  }
+
+  handleBtnFormSubmitClick(e) {
+    // prevent default submit
+    e.preventDefault();
+
+    // get form data
+
+    // get project id
+
+    // create new task for specific project
   }
 }

@@ -5,6 +5,7 @@ class View {
   #projectContainer = document.querySelector(".project");
   #btnProjects = document.querySelector(".btn--projects");
   #btnAddTasks = document.querySelectorAll(".btn--create-task");
+  #btnSubmitForm = document.querySelector(".btn--form-submit");
   #projectList = document.querySelector(".project-list");
   #taskForm = document.querySelector(".task-form");
 
@@ -26,9 +27,19 @@ class View {
     });
   }
 
+  addBtnFormSubmitHandler(handler, eventType = "click") {
+    console.log("test");
+    this.#btnSubmitForm.addEventListener(eventType, handler);
+  }
+
   renderProjectView(project) {
     const html = this.generateProjectMarkup(project);
     this.#projectContainer.insertAdjacentHTML("afterbegin", html);
+    this.setProjectId(project.id);
+  }
+
+  setProjectId(projectId) {
+    this.#projectContainer.dataset.projectId = projectId;
   }
 
   generateProjectMarkup(project) {
