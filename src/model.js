@@ -11,7 +11,10 @@ class Project {
 
   removeTask(taskId) {}
 
-  updateTask(taskId, taskInfo) {}
+  updateTask(taskId, taskInfo) {
+    this.getTaskById(taskId).update(taskInfo);
+    console.log(this.getTaskById(taskId));
+  }
 
   createTask({ name, description = "", dueDate = "", priority, tags = [] }) {
     this.#tasks.push(new Task(name, description, dueDate, priority, tags));
@@ -86,6 +89,14 @@ class Task {
 
   get tags() {
     return this.#tags;
+  }
+
+  update(taskInfo) {
+    this.#name = taskInfo.name ?? this.#name;
+    this.#description = taskInfo.description ?? this.#description;
+    this.#dueDate = taskInfo.dueDate ?? this.#dueDate;
+    this.#priority = taskInfo.priority ?? this.#priority;
+    this.#tags = taskInfo.tags ?? this.#tags;
   }
 }
 

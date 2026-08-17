@@ -81,6 +81,15 @@ class View {
     this.#projectContainer.insertAdjacentHTML("afterbegin", html);
   }
 
+  renderTaskList(tasks) {
+    const taskListEl = this.#projectContainer.querySelector(".project__task-list");
+
+    const html = this.generateTaskListMarkup(tasks);
+
+    taskListEl.innerHTML = "";
+    taskListEl.insertAdjacentHTML("beforeend", html);
+  }
+
   addTask(task) {
     const taskList = this.#projectContainer.querySelector(".project__task-list");
     taskList.insertAdjacentHTML("beforeend", this.generateTaskMarkup(task));
@@ -147,11 +156,12 @@ class View {
 
     if (type === "createTask") {
       this.renderTaskForm(projects);
+      this.populateCreateTaskForm();
     }
 
     if (type === "editTask") {
       this.renderTaskForm(projects);
-      this.populateTaskForm(task);
+      this.populateEditTaskForm(task);
     }
   }
 
@@ -171,7 +181,7 @@ class View {
     projectControlEl.insertAdjacentHTML("afterbegin", html);
   }
 
-  populateTaskForm(task) {
+  populateEditTaskForm(task) {
     const fieldMap = {
       name: "task-name",
       description: "task-desc",
@@ -180,14 +190,30 @@ class View {
       tags: "task-tags",
     };
 
+    // add task ID
+    this.#taskForm.dataset.id = task.id;
+
     // modify taskform title
     this.#taskForm.querySelector("h1").textContent = "Edit Task";
+
+    // modfiy submit button text
+    this.#btnSubmitForm.textContent = "Confirm Edit";
+
+    const formTypeField = this.#taskForm.querySelector('input[type="hidden"');
+    formTypeField.value = "edit-task";
 
     // populate task controls
     const inputControls = [...this.#taskForm.elements];
     for (const [field, name] of Object.entries(fieldMap)) {
       this.#taskForm.elements[name].value = task[field];
     }
+  }
+
+  populateCreateTaskForm() {
+    this.#taskForm.querySelector("h1").textContent = "New Task";
+    this.#btnSubmitForm.textContent = "Create Task";
+    const formTypeField = this.#taskForm.querySelector('input[type="hidden"');
+    formTypeField.value = "create-task";
   }
 
   generateProjectControlMarkup(projects) {
@@ -198,13 +224,13 @@ class View {
     return `<option value=${project.id} ${project.name === "inbox" ? "selected" : ""}>${project.name}</option>`;
   }
 
-  closeForm(type = "task") {
-    if (type === "task") {
-      console.log(this.#taskForm.parentElement);
-      this.#taskForm.parentElement.close();
+  closeForm() {
+    // if (type === "task") {
+    console.log(this.#taskForm.parentElement);
+    this.#taskForm.parentElement.close();
 
-      this.#taskForm.reset();
-    }
+    this.#taskForm.reset();
+    // }
   }
 
   showTaskActionsMenu() {}

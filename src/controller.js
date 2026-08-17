@@ -57,13 +57,48 @@ export default class AppController {
 
     // get form data
     const formData = new FormData(e.target);
+    const formType = formData.get("form-type");
 
+    if (formType === "create-task") {
+      this.handleTaskCreation(formData);
+    }
+
+    if (formType === "edit-task") {
+      this.handleTaskEdit(e, formData);
+    }
+
+    // close form
+    this.view.closeForm(formData);
+  }
+
+  handleTaskEdit(e, formData) {
+    // get updated info
+    const { projectId, ...taskInfo } = this.getFormData(formData);
+    const taskId = e.target.dataset.id;
+
+    // get current project
+    const currentProject = this.app.getProjectById(projectId);
+
+    // update task
+    currentProject.updateTask(taskId, taskInfo);
+
+    // rerender view
+    this.view.renderTaskList(currentProject.tasks);
+  }
+
+  getFormData(formData) {
     const name = formData.get("task-name");
     const description = formData.get("task-desc");
     const dueDate = formData.get("due-date");
     const priority = formData.get("task-priority");
     const tags = formData.get("task-tags");
     const projectId = formData.get("project");
+
+    return { name, description, dueDate, priority, tags, projectId };
+  }
+
+  handleTaskCreation(formData) {
+    const { name, description, dueDate, priority, tags, projectId } = this.getFormData(formData);
 
     // TODO: validate form data
     const validateFormData = formData => {};
@@ -76,9 +111,6 @@ export default class AppController {
 
     // rerender view if task is present here
     if (this.view.getCurrentProjectId() === project.id) this.view.addTask(project.tasks.at(-1));
-
-    // close form
-    this.view.closeForm();
   }
 
   handleEditTaskBtnClick(e) {
