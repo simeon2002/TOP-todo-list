@@ -342,6 +342,33 @@ label:hover:not(:has(.task__checkbox:checked)) .icon-checkmark {
   margin-bottom: var(--space-100);
 }
 
+/* Task actions menu */
+.task-actions-menu {
+  display: none;
+  flex-direction: column;
+  max-width: fit-content;
+  border-radius: 4px;
+  background-color: var(--clr-gray-300);
+}
+
+.task-actions-menu--open {
+  display: flex;
+}
+
+body:has(.user-details__user-name:focus) .task-actions-menu {
+  background-color: yellow !important;
+}
+
+.btn.btn--task-action {
+  color: var(--clr-gray-900);
+  font-size: var(--fs-text-sec);
+  padding: var(--space-100) var(--space-200);
+}
+
+.btn--task-action:hover {
+  background-color: var(--clr-gray-200);
+}
+
 /* Dialog styling */
 dialog {
   background-color: var(--clr-white);
@@ -441,7 +468,7 @@ form h1 {
   cursor: pointer;
   text-transform: capitalize;
   padding: var(--space-50) var(--space-140);
-  transition: all 0.3s ease-in;
+  transition: all 0.2s ease-out;
 }
 
 .btn--create-task {
