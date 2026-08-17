@@ -4,7 +4,7 @@ class Project {
   #color;
   #tasks = [];
 
-  constructor(name, color = undefined) {
+  constructor(name, color = "") {
     this.#id = crypto.randomUUID();
     this.#name = name;
   }
@@ -13,8 +13,12 @@ class Project {
 
   updateTask(taskId, taskInfo) {}
 
-  createTask({ name, description = "", dueDate = undefined, priority, tags = [] }) {
+  createTask({ name, description = "", dueDate = "", priority, tags = [] }) {
     this.#tasks.push(new Task(name, description, dueDate, priority, tags));
+  }
+
+  getTaskById(taskId) {
+    return this.#tasks.find(task => task.id === taskId);
   }
 
   get name() {
@@ -70,6 +74,10 @@ class Task {
 
   get dueDate() {
     return this.#dueDate;
+  }
+
+  set dueDate(date) {
+    this.#dueDate = date;
   }
 
   get priority() {

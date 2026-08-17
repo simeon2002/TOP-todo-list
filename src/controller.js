@@ -48,7 +48,7 @@ export default class AppController {
   }
 
   handleAddTaskBtnClick(e) {
-    this.view.renderForm(this.app.projects, "task");
+    this.view.renderForm("createTask", { projects: this.app.projects });
   }
 
   handleBtnFormSubmit(e) {
@@ -84,6 +84,14 @@ export default class AppController {
   handleEditTaskBtnClick(e) {
     const editTaskBtn = e.target.closest(".btn--task-action");
     if (!editTaskBtn) return;
-    console.log(editTaskBtn);
+
+    // fetch task details
+    const taskId = e.target.closest(".task").dataset.taskId;
+    const projectId = this.view.getCurrentProjectId();
+    const task = this.app.getProjectById(projectId).getTaskById(taskId);
+    const projects = this.app.projects;
+
+    // render populated edit form
+    this.view.renderForm("editTask", { projects, task });
   }
 }

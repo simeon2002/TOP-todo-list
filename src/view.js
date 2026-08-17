@@ -49,7 +49,6 @@ class View {
       this.closeOpenedTaskmenu();
 
       if (!btn) {
-        console.log("test");
         return;
       }
 
@@ -143,21 +142,49 @@ class View {
     this.#projectList.insertAdjacentHTML("afterbegin", html);
   }
 
-  renderForm(projects, type = "task") {
-    if (type === "task") {
-      // add class to render form
-      this.#taskForm.classList.add("show-form");
-      // TODO: remove show-form from project form.
+  renderForm(type = "createTask", { projects, task }) {
+    console.log(projects);
 
-      // open dialog window
-      const dialog = this.#taskForm.parentElement;
-      dialog.showModal();
+    if (type === "createTask") {
+      this.renderTaskForm(projects);
+    }
 
-      // Display all project options
-      const projectControlEl = this.#taskForm.querySelector("#project");
-      const html = this.generateProjectControlMarkup(projects, projectControlEl);
-      projectControlEl.innerHTML = "";
-      projectControlEl.insertAdjacentHTML("afterbegin", html);
+    if (type === "editTask") {
+      this.renderTaskForm(projects);
+      this.populateTaskForm(task);
+    }
+  }
+
+  renderTaskForm(projects) {
+    // add class to render form
+    this.#taskForm.classList.add("show-form");
+    // TODO: remove show-form from project form.
+
+    // open dialog window
+    const dialog = this.#taskForm.parentElement;
+    dialog.showModal();
+
+    // Display all project options
+    const projectControlEl = this.#taskForm.querySelector("#project");
+    const html = this.generateProjectControlMarkup(projects, projectControlEl);
+    projectControlEl.innerHTML = "";
+    projectControlEl.insertAdjacentHTML("afterbegin", html);
+  }
+
+  populateTaskForm(task) {
+    const fieldMap = {
+      name: "task-name",
+      description: "task-desc",
+      dueDate: "due-date",
+      priority: "task-priority",
+      tags: "task-tags",
+    };
+    console.log(task);
+
+    const inputControls = [...this.#taskForm.elements];
+
+    for (const [field, name] of Object.entries(fieldMap)) {
+      this.#taskForm.elements[name].value = task[field];
     }
   }
 
