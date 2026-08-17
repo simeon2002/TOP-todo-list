@@ -10,8 +10,12 @@ class Project {
   }
 
   removeTask(taskId) {
-    const taskIndex = this.#tasks.findIndex(task => task === taskId);
+    const taskIndex = this.getTaskIndex(taskId);
     console.log(this.#tasks.splice(taskIndex, 1));
+  }
+
+  getTaskIndex(taskId) {
+    return this.#tasks.findIndex(task => task.id === taskId);
   }
 
   updateTask(taskId, taskInfo) {
@@ -23,10 +27,30 @@ class Project {
     this.#tasks.push(new Task(name, description, dueDate, priority, tags));
   }
 
+  addTask(task) {
+    this.#tasks.push(task);
+  }
+
+  moveTask(taskId, toProject) {
+    // get index
+    const taskIdx = this.getTaskIndex(taskId);
+    console.log(taskIdx);
+
+    // add task to other project
+    console.log("adding task...");
+
+    toProject.addTask(this.#tasks[taskIdx]);
+
+    console.log("Removing task from old project....");
+
+    // project from this project
+    this.removeTask(taskId);
+    console.log(this);
+    console.log(toProject);
+  }
+
   getTaskById(taskId) {
     return this.#tasks.find(task => {
-      console.log(task.id === taskId);
-
       return task.id === taskId;
     });
   }

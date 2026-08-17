@@ -79,11 +79,17 @@ export default class AppController {
     const { projectId, ...taskInfo } = this.getFormData(formData);
     const taskId = e.target.dataset.id;
 
-    // get current project
-    const currentProject = this.app.getProjectById(projectId);
+    // get selected and current project
+    const selectedProject = this.app.getProjectById(projectId);
+    const currentProject = this.app.getProjectById(this.view.getCurrentProjectId());
 
     // update task
     currentProject.updateTask(taskId, taskInfo);
+
+    // if different project is selected, move task
+    if (selectedProject.id !== currentProject.id) {
+      currentProject.moveTask(taskId, selectedProject);
+    }
 
     // rerender view
     this.view.renderTaskList(currentProject.tasks);
