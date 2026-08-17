@@ -28,8 +28,7 @@ class View {
   }
 
   addBtnFormSubmitHandler(handler, eventType = "click") {
-    console.log("test");
-    this.#btnSubmitForm.addEventListener(eventType, handler);
+    this.#taskForm.addEventListener(eventType, handler);
   }
 
   renderProjectView(project) {
@@ -40,6 +39,10 @@ class View {
 
   setProjectId(projectId) {
     this.#projectContainer.dataset.projectId = projectId;
+  }
+
+  getCurrentProjectId() {
+    return this.#projectContainer.dataset.projectId;
   }
 
   generateProjectMarkup(project) {
@@ -77,7 +80,7 @@ class View {
     this.#projectList.insertAdjacentHTML("afterbegin", html);
   }
 
-  renderForm(type = "task") {
+  renderForm(projects, type = "task") {
     if (type === "task") {
       // add class to render form
       this.#taskForm.classList.add("show-form");
@@ -86,7 +89,19 @@ class View {
       // open dialog window
       const dialog = this.#taskForm.parentElement;
       dialog.showModal();
+
+      // Display all project options
+      const projectControlEl = this.#taskForm.querySelector("#project");
+      console.log(projectControlEl);
     }
+  }
+
+  populateProjectControl(projects, projectControlEl) {
+    const html = this.projectOptionMarkup();
+  }
+
+  projectOptionMarkup(projects) {
+    return `<option value=${project.id}`;
   }
 }
 

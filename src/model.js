@@ -83,20 +83,19 @@ class Task {
 
 class App {
   #projects = [];
-  #inbox = new Project("inbox");
 
   constructor() {
-    this.generateDummyData(this.#inbox);
+    this.createProject({ name: "inbox" });
     this.createProject({ name: "First project" });
     this.createProject({ name: "Second project" });
     this.createProject({ name: "Third Project project" });
     console.log(this.#projects);
 
-    this.#projects.forEach(this.generateDummyData);
+    this.#projects.forEach(project => this.generateDummyData(project));
   }
 
   generateDummyData(project, taskCount = Math.floor(Math.random() * 5 + 1)) {
-    console.log(taskCount);
+    console.log(project, taskCount);
     for (let i = 0; i < taskCount; i++) {
       project.createTask({
         name: `task ${Math.floor(Math.random() * 20 + 1)}`,
@@ -122,15 +121,20 @@ class App {
     return this.#projects.filter(project => name === project.name)[0];
   }
 
+  getProjectById(id) {
+    return (
+      this.#projects.find(project => {
+        project.id === id;
+      }) || false
+    );
+  }
+
   get projects() {
     return this.#projects;
   }
 
   getProjectNames() {
     return this.#projects.map(project => project.name);
-  }
-  get inbox() {
-    return this.#inbox;
   }
 }
 

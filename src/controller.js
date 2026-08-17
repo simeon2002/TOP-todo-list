@@ -10,12 +10,12 @@ export default class AppController {
     this.view.addPageLoadHandler(this.handlePagleLoad.bind(this));
     this.view.addBtnProjectsHandler(this.handleBtnProjectsClick.bind(this));
     this.view.addBtnAddTaskHandler(this.handleAddTaskBtnClick.bind(this), "click");
-    this.view.addBtnFormSubmitHandler(this.handleBtnFormSubmitClick.bind(this), "click");
+    this.view.addBtnFormSubmitHandler(this.handleBtnFormSubmit.bind(this), "submit");
   }
 
   handlePagleLoad(e) {
     console.log(this.app);
-    const inboxProject = this.app.inbox;
+    const inboxProject = this.app.getProjectByName("inbox");
 
     //display inbox with populated tasks
     this.view.renderProjectView(inboxProject);
@@ -50,14 +50,34 @@ export default class AppController {
     this.view.renderForm("task");
   }
 
-  handleBtnFormSubmitClick(e) {
+  handleBtnFormSubmit(e) {
     // prevent default submit
     e.preventDefault();
 
     // get form data
+    const formData = new FormData(e.target);
 
-    // get project id
+    const taskName = formData.get("task-name");
+    const taskDesc = formData.get("task-desc");
+    const taskDueDate = formData.get("due-date");
+    const taskPriority = formData.get("task-priority");
+    const taskTags = formData.get("task-tags");
+    console.log(taskName, taskDesc, taskDueDate, taskPriority, taskTags);
+
+    // TODO: validate form data
+    const validateFormData = formData => {};
+
+    // get current project
+    const projectId = this.view.getCurrentProjectId();
+
+    // const project = this.app.getProjectById(projectId);
+
+    // get project
 
     // create new task for specific project
+
+    // rerender view
+
+    // close form
   }
 }
