@@ -73,8 +73,8 @@ export default class AppController {
     // create new task for specific project
     project.createTask({ name, description, dueDate, priority, tags });
 
-    // rerender view
-    this.view.renderProjectView(project);
+    // rerender view if task is present here
+    if (this.view.getCurrentProjectId() === project.id) this.view.addTask(project.tasks.at(-1));
 
     // close form
     this.view.closeForm();

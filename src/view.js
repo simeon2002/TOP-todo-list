@@ -32,25 +32,16 @@ class View {
   renderProjectView(project) {
     const html = this.generateProjectMarkup(project);
 
+    // project id set in project article el
     this.setProjectId(project.id);
 
-    console.log(this.#projectContainer.querySelector(".project__task-list"));
-    this.removeProjectViewChildren();
+    // insert project markup
     this.#projectContainer.insertAdjacentHTML("afterbegin", html);
   }
 
-  hasTaskListChild() {
-    return this.#projectContainer.querySelector(".project__task-list") !== null;
-  }
-
-  removeProjectViewChildren() {
-    const children = [...this.#projectContainer.children];
-    console.log(children);
-
-    for (const child of children) {
-      if (child.classList.contains("add-task-container")) continue;
-      child.remove();
-    }
+  addTask(task) {
+    const taskList = this.#projectContainer.querySelector(".project__task-list");
+    taskList.append(this.generateTaskMarkup(task));
   }
 
   setProjectId(projectId) {
@@ -66,9 +57,13 @@ class View {
           <h1 class="project__title heading-primary">${capacitlizeString(project.name)}</h1>
           <div class="project__divider"></div>
           <div class="project__task-list">
-            ${project.tasks.map(this.generateTaskMarkup).join("")}
+            ${this.generateTaskListMarkup(project.tasks)}
           </div>
     `;
+  }
+
+  generateTaskListMarkup(tasks) {
+    return tasks.map(this.generateTaskMarkup).join("");
   }
 
   generateTaskMarkup(task) {
