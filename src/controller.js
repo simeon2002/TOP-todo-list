@@ -57,27 +57,26 @@ export default class AppController {
     // get form data
     const formData = new FormData(e.target);
 
-    const taskName = formData.get("task-name");
-    const taskDesc = formData.get("task-desc");
-    const taskDueDate = formData.get("due-date");
-    const taskPriority = formData.get("task-priority");
-    const taskTags = formData.get("task-tags");
-    console.log(taskName, taskDesc, taskDueDate, taskPriority, taskTags);
+    const name = formData.get("task-name");
+    const description = formData.get("task-desc");
+    const dueDate = formData.get("due-date");
+    const priority = formData.get("task-priority");
+    const tags = formData.get("task-tags");
+    const projectId = formData.get("project");
 
     // TODO: validate form data
     const validateFormData = formData => {};
 
     // get current project
-    const projectId = this.view.getCurrentProjectId();
-
-    // const project = this.app.getProjectById(projectId);
-
-    // get project
+    const project = this.app.getProjectById(projectId);
 
     // create new task for specific project
+    project.createTask({ name, description, dueDate, priority, tags });
 
     // rerender view
+    this.view.renderProjectView(project);
 
     // close form
+    this.view.closeForm();
   }
 }

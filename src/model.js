@@ -120,11 +120,7 @@ class App {
   }
 
   getProjectById(id) {
-    return (
-      this.#projects.find(project => {
-        project.id === id;
-      }) || false
-    );
+    return this.#projects.find(project => project.id === id);
   }
 
   get projects() {

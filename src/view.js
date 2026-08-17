@@ -31,8 +31,26 @@ class View {
 
   renderProjectView(project) {
     const html = this.generateProjectMarkup(project);
-    this.#projectContainer.insertAdjacentHTML("afterbegin", html);
+
     this.setProjectId(project.id);
+
+    console.log(this.#projectContainer.querySelector(".project__task-list"));
+    this.removeProjectViewChildren();
+    this.#projectContainer.insertAdjacentHTML("afterbegin", html);
+  }
+
+  hasTaskListChild() {
+    return this.#projectContainer.querySelector(".project__task-list") !== null;
+  }
+
+  removeProjectViewChildren() {
+    const children = [...this.#projectContainer.children];
+    console.log(children);
+
+    for (const child of children) {
+      if (child.classList.contains("add-task-container")) continue;
+      child.remove();
+    }
   }
 
   setProjectId(projectId) {
@@ -102,6 +120,15 @@ class View {
 
   projectOptionMarkup(project) {
     return `<option value=${project.id} ${project.name === "inbox" ? "selected" : ""}>${project.name}</option>`;
+  }
+
+  closeForm(type = "task") {
+    if (type === "task") {
+      console.log(this.#taskForm.parentElement);
+      this.#taskForm.parentElement.close();
+
+      this.#taskForm.reset();
+    }
   }
 }
 
