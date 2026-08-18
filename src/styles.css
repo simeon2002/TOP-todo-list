@@ -60,6 +60,7 @@
   --fs-caption: var(--fs-200);
   --fs-text-prim: var(--fs-400);
   --fs-icon-md: var(--fs-500);
+  --fs-icon-sm: var(--fs-300);
   --fs-text-sec: var(--fs-300);
   --fs-heading-prim: var(--fs-800);
   --fs-heading-sec: var(--fs-600);
@@ -155,7 +156,7 @@ ion-icon {
   gap: var(--space-140);
 }
 
-.item .btn:not(.btn--create):hover {
+.item:not(:has(.btn--create)):hover {
   width: 100%;
   text-align: left;
   background-color: var(--clr-primary-100);
@@ -163,14 +164,11 @@ ion-icon {
 
 .btn--projects {
   margin-bottom: var(--space-100);
+  width: 100%;
 }
 
 .btn--projects span {
   margin-right: auto;
-}
-
-.btn--open.btn--projects {
-  /* background-color: var(--clr-primary-100); */
 }
 
 .btn--open .icon--chevron {
@@ -204,7 +202,7 @@ ion-icon {
 .project-list-container {
   display: grid;
   grid-template-rows: 0fr;
-  overflow: hidden;
+  /* overflow: hidden; */
   transition: grid-template-rows 0.2s ease-out;
 }
 
@@ -217,6 +215,67 @@ ion-icon {
   margin-left: var(--space-100);
   min-height: 0;
   gap: var(--space-50);
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-50) var(--space-140);
+  gap: var(--space-140);
+}
+
+.project-details-dropdown {
+  flex-shrink: 0;
+  margin-left: auto;
+  position: relative;
+}
+
+.project-actions-menu {
+  position: absolute;
+  width: max-content;
+  display: none;
+  flex-direction: column;
+  border-radius: 4px;
+  background-color: var(--clr-gray-300);
+  z-index: 1;
+}
+
+.project-details-dropdown:has(.btn--project-details--open) .project-actions-menu {
+  display: flex;
+}
+
+.btn.btn--project-action {
+  display: block;
+  color: var(--clr-gray-900);
+  font-size: var(--fs-caption);
+  padding: var(--space-100) var(--space-200);
+  width: 100%;
+}
+
+.btn--project-action:hover {
+  background-color: var(--clr-gray-200);
+}
+
+.btn.btn--project-details {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  padding: var(--space-20);
+  border-radius: 50%;
+}
+
+.btn--project-details ion-icon {
+  display: block;
+  font-size: var(--fs-icon-sm);
+}
+
+.project-item:hover .btn--project-details {
+  visibility: visible;
+  opacity: 1;
+}
+
+.project-item .btn--project-details:hover {
+  background-color: var(--clr-gray-200);
 }
 
 /* MAIN VIEW SECTION */
@@ -265,7 +324,7 @@ ion-icon {
   font-weight: var(--fw-semi-bold);
 }
 
-.details-dropdown {
+.task-details-dropdown {
   flex-shrink: 0;
   margin-left: auto;
   position: relative;
@@ -354,6 +413,7 @@ label:hover:not(:has(.task__checkbox:checked)) .icon-checkmark {
   display: none;
   position: absolute;
   flex-direction: column;
+  align-items: left;
   border-radius: 4px;
   background-color: var(--clr-gray-300);
   width: max-content;
@@ -514,10 +574,8 @@ form h1 {
 
 .btn--project-item {
   border-left: 3px solid inherit;
-}
-
-.btn.btn--active {
-  background-color: var(--clr-gray-300);
+  padding: 0;
+  margin-right: auto;
 }
 
 .list {
@@ -526,11 +584,16 @@ form h1 {
   display: flex;
   flex-direction: column;
 }
-.item .btn {
+
+.item {
   width: 100%;
   text-align: left;
   border-radius: 8px;
   transition: background-color 0.3s ease-in;
+}
+
+.item--active {
+  background-color: var(--clr-gray-300);
 }
 
 /********************************************/

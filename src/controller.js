@@ -178,13 +178,13 @@ export default class AppController {
   // }
 
   handleNavItemClick(e) {
-    const navBtn = e.target.closest(".btn--nav:not(.btn--projects");
-    if (!navBtn) return;
+    const navItem = e.target.closest(".nav-list .item:not(:has(.btn--projects))");
+    if (!navItem) return;
+    console.log(navItem);
 
-    const navBtns = e.currentTarget.querySelectorAll(".btn--nav");
-    const navListItem = navBtn.parentElement;
-    let projectId = navListItem.dataset.projectId;
-
+    const navItems = e.currentTarget.querySelectorAll(".nav-list .item");
+    const navBtn = navItem.querySelector(".btn--nav");
+    let projectId = navItem.dataset.projectId;
     if (projectId) {
       // fetch project
       const project = this.app.getProjectById(projectId);
@@ -199,8 +199,8 @@ export default class AppController {
     }
 
     // make clicked btn active state
-    navBtns.forEach(btn => btn.classList.remove("btn--active"));
-    navBtn.classList.add("btn--active");
+    navItems.forEach(btn => btn.classList.remove("item--active"));
+    navItem.classList.add("item--active");
   }
 
   handleAllTasksRender() {

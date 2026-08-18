@@ -22,6 +22,7 @@ class View {
     this.addBtnCloseHandler();
     this.addCreateProjectBtnHandler();
     this.handleDialogClose();
+    this.handleBtnProjectDetailsClick();
   }
 
   addPageLoadHandler(handler) {
@@ -64,6 +65,19 @@ class View {
 
       // case: button clicked for the first time
       btn.classList.add("btn--task-details--open");
+    });
+  }
+
+  handleBtnProjectDetailsClick() {
+    document.body.addEventListener("click", e => {
+      const projectDetailsBtn = e.target.closest(".btn--project-details");
+      if (!projectDetailsBtn) {
+        this.closeOpenedProjectMenu();
+        return;
+      }
+
+      this.closeOpenedProjectMenu();
+      projectDetailsBtn.classList.add("btn--project-details--open");
     });
   }
 
@@ -114,6 +128,12 @@ class View {
     btnsTaskDetails.forEach(btn => {
       btn.classList.remove("btn--task-details--open");
     });
+  }
+
+  closeOpenedProjectMenu() {
+    const projectDetailsBtns = this.#projectList.querySelectorAll(".btn--project-details");
+
+    projectDetailsBtns.forEach(btn => btn.classList.remove("btn--project-details--open"));
   }
 
   renderProjectView({ id, name, tasks }) {
@@ -181,7 +201,7 @@ class View {
                 ></ion-icon
               ></label>
               <h2 class="heading-secondary task__title">${capacitlizeString(task.name)}</h2>
-              <div class="details-dropdown">
+              <div class="task-details-dropdown">
                 <button type="button" class="btn btn--task-details">
                   <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
                 </button>
@@ -207,7 +227,21 @@ class View {
   renderProjectsInSidebar(projects) {
     const generateProjectItemMarkup = project => {
       console.log(project.color);
-      return `<li class="item project-item" data-project-id=${project.id}><button class="btn btn--nav btn--project-item" ${project.color !== "inherit" ? `style="border-left: 3px solid ${project.color}"` : ""} >${project.name}</button></li>`;
+      return `
+      <li class="item project-item" data-project-id=${project.id} ${project.color !== "inherit" ? `style="border-left: 3px solid ${project.color}"` : ""}>
+        <button class="btn btn--nav btn--project-item" >
+          ${project.name}
+        </button>
+        <div class="project-details-dropdown">
+          <button type="button" class="btn btn--project-details">
+            <ion-icon class="task__icon-edit-project" name="ellipsis-vertical-outline"></ion-icon>
+          </button>
+          <menu class="project-actions-menu">
+            <button class="btn btn--project-action btn--project-edit">Edit Project</button>
+            <button class="btn btn--project-action btn--project-delete">Delete Project</button>
+          </menu>
+        </div>
+      </li>`;
     };
 
     const html = projects.map(generateProjectItemMarkup).join("");
