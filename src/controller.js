@@ -85,21 +85,19 @@ export default class AppController {
 
     // get selected and current project
     const selectedProject = this.app.getProjectById(projectId);
-    const currentProject = this.app.getProjectByTaskId(taskId);
+    const currentProjectOfTask = this.app.getProjectByTaskId(taskId);
 
     // update task
-    currentProject.updateTask(taskId, taskInfo);
+    currentProjectOfTask.updateTask(taskId, taskInfo);
 
     // if different project is selected, move task
-    if (selectedProject.id !== currentProject.id) {
-      currentProject.moveTask(taskId, selectedProject);
+    if (selectedProject.id !== currentProjectOfTask.id) {
+      currentProjectOfTask.moveTask(taskId, selectedProject);
     }
 
     // rerender view
-    const currentViewProjectId = this.view.getCurrentProjectId();
-    console.log(currentViewProjectId);
-    if (currentViewProjectId === "all tasks") this.handleAllTasksRender();
-    else this.view.renderTaskList(currentProject.tasks);
+    if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
+    else this.view.renderTaskList(currentProjectOfTask.tasks);
   }
 
   getFormData(formData) {
@@ -163,7 +161,8 @@ export default class AppController {
     currentProject.removeTask(taskId);
 
     // update task list
-    this.view.renderTaskList(currentProject.tasks);
+    if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
+    else this.view.renderTaskList(currentProject.tasks);
   }
 
   // handleProjectNavClick(e) {
@@ -208,5 +207,9 @@ export default class AppController {
     const id = "all tasks";
 
     this.view.renderProjectView({ id, name, tasks });
+  }
+
+  isAllTasksViewOpen() {
+    return this.view.getCurrentProjectId() === "all tasks";
   }
 }
