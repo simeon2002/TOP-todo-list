@@ -170,7 +170,7 @@ ion-icon {
 }
 
 .btn--open.btn--projects {
-  background-color: var(--clr-primary-100);
+  /* background-color: var(--clr-primary-100); */
 }
 
 .btn--open .icon--chevron {

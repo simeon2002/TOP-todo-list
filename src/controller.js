@@ -13,7 +13,8 @@ export default class AppController {
     this.view.addBtnFormSubmitHandler(this.handleBtnFormSubmit.bind(this), "submit");
     this.view.addBtnEditTaskHandler(this.handleEditTaskBtnClick.bind(this));
     this.view.addBtnRemoveTaskHandler(this.handleRemoveTaskBtnClick.bind(this));
-    this.view.addProjectItemClicked(this.handleProjectItemClick.bind(this));
+    this.view.addProjectNavClicked(this.handleProjectNavClick.bind(this));
+    this.view.addInboxNavClicked(this.handleInboxNavClick.bind(this));
   }
 
   handlePagleLoad(e) {
@@ -156,7 +157,7 @@ export default class AppController {
     this.view.renderTaskList(currentProject.tasks);
   }
 
-  handleProjectItemClick(e) {
+  handleProjectNavClick(e) {
     console.log(e.target);
     const projectItemBtn = e.target.closest(".btn--project-item");
     if (!projectItemBtn) return;
@@ -164,5 +165,20 @@ export default class AppController {
 
     // display new project view
     this.view.renderProjectView(this.app.getProjectById(projectId));
+  }
+
+  handleInboxNavClick(e) {
+    const inboxBtn = e.target;
+    const projectsBtn = e.target.querySelector(".btn--inbox ~ .btn--projects");
+    console.log(projectsBtn);
+
+    // fetch inbox
+    const inbox = this.app.getProjectByName("inbox");
+    console.log(inbox);
+
+    // display inbox
+    this.view.renderProjectView(inbox);
+
+    // reset button--open color
   }
 }

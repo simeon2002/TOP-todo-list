@@ -8,6 +8,7 @@ class View {
   #btnSubmitForm = document.querySelector(".btn--form-submit");
   #btnCloseForm = document.querySelector(".btn--close-form");
   #projectList = document.querySelector(".project-list");
+  #inboxNav = document.querySelector(".btn--inbox");
   #taskForm = document.querySelector(".task-form");
 
   constructor() {
@@ -75,8 +76,12 @@ class View {
     });
   }
 
-  addProjectItemClicked(handler) {
+  addProjectNavClicked(handler) {
     this.#projectList.addEventListener("click", handler);
+  }
+
+  addInboxNavClicked(handler) {
+    this.#inboxNav.addEventListener("click", handler);
   }
 
   closeOpenedTaskmenu() {
