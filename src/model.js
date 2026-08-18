@@ -186,6 +186,10 @@ class App {
     return this.#projects.find(project => project.id === id);
   }
 
+  getProjectByTaskId(taskId) {
+    return this.#projects.find(project => project.tasks.some(task => task.id === taskId));
+  }
+
   getAllTasks() {
     return this.#projects.flatMap(project => project.tasks);
   }

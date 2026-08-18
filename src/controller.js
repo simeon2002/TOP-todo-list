@@ -85,7 +85,7 @@ export default class AppController {
 
     // get selected and current project
     const selectedProject = this.app.getProjectById(projectId);
-    const currentProject = this.app.getProjectById(this.view.getCurrentProjectId());
+    const currentProject = this.app.getProjectByTaskId(taskId);
 
     // update task
     currentProject.updateTask(taskId, taskInfo);
@@ -96,7 +96,10 @@ export default class AppController {
     }
 
     // rerender view
-    this.view.renderTaskList(currentProject.tasks);
+    const currentViewProjectId = this.view.getCurrentProjectId();
+    console.log(currentViewProjectId);
+    if (currentViewProjectId === "all tasks") this.handleAllTasksRender();
+    else this.view.renderTaskList(currentProject.tasks);
   }
 
   getFormData(formData) {
@@ -131,15 +134,16 @@ export default class AppController {
     if (!editTaskBtn) return;
 
     // fetch task details
-    const taskId = e.target.closest(".task").dataset.taskId;
-    const projectId = this.view.getCurrentProjectId();
+    const taskEl = e.target.closest(".task");
+    const taskId = taskEl.dataset.taskId;
+    const projectId = taskEl.dataset.projectId;
     const task = this.app.getProjectById(projectId).getTaskById(taskId);
     const projects = this.app.projects;
     const inbox = this.app.getInbox();
     console.log(inbox);
 
     // render populated edit form
-    this.view.renderForm("editTask", { projects: [...projects, inbox], task });
+    this.view.renderForm("editTask", { projects: [inbox, ...projects], task });
   }
 
   handleRemoveTaskBtnClick(e) {
@@ -152,8 +156,10 @@ export default class AppController {
     if (!confirmDeletion) return;
 
     // if yes -> remove task from projects
-    const currentProject = this.app.getProjectById(this.view.getCurrentProjectId());
+    const taskEl = e.target.closest(".task");
     const taskId = e.target.closest(".task").dataset.taskId;
+    const projectId = e.target.closest(".task").dataset.projectId;
+    const currentProject = this.app.getProjectById(projectId);
     currentProject.removeTask(taskId);
 
     // update task list
@@ -176,7 +182,7 @@ export default class AppController {
 
     const navBtns = e.currentTarget.querySelectorAll(".btn--nav");
     const navListItem = navBtn.parentElement;
-    const projectId = navListItem.dataset.projectId;
+    let projectId = navListItem.dataset.projectId;
 
     if (projectId) {
       // fetch project
@@ -188,14 +194,19 @@ export default class AppController {
     }
 
     if (navBtn.textContent.toLowerCase() === "all tasks") {
-      const tasks = this.app.getAllTasks();
-      console.log(tasks);
-
-      this.view.renderProjectView({ name: "all tasks", tasks });
+      this.handleAllTasksRender();
     }
 
     // make clicked btn active state
     navBtns.forEach(btn => btn.classList.remove("btn--active"));
     navBtn.classList.add("btn--active");
+  }
+
+  handleAllTasksRender() {
+    const tasks = this.app.getAllTasks();
+    const name = "all tasks";
+    const id = "all tasks";
+
+    this.view.renderProjectView({ id, name, tasks });
   }
 }
