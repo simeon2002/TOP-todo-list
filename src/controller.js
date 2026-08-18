@@ -13,7 +13,7 @@ export default class AppController {
     this.view.addBtnFormSubmitHandler(this.handleBtnFormSubmit.bind(this), "submit");
     this.view.addBtnEditTaskHandler(this.handleEditTaskBtnClick.bind(this));
     this.view.addBtnRemoveTaskHandler(this.handleRemoveTaskBtnClick.bind(this));
-    this.view.addProjectNavClicked(this.handleProjectNavClick.bind(this));
+    // this.view.addProjectNavClicked(this.handleProjectNavClick.bind(this));
     this.view.addNavItemClickedHandler(this.handleNavItemClick.bind(this));
   }
 
@@ -31,7 +31,7 @@ export default class AppController {
     this.view.renderProjectsInSidebar(projects);
 
     // add projectId to inbox nav item
-    this.view.addInboxIdToNav(this.app.getInbox().id);
+    this.view.inboxNavOnLoad(this.app.getInbox().id);
   }
 
   handleBtnProjectsClick(e) {
@@ -160,25 +160,37 @@ export default class AppController {
     this.view.renderTaskList(currentProject.tasks);
   }
 
-  handleProjectNavClick(e) {
-    console.log(e.target);
-    const projectItemBtn = e.target.closest(".btn--project-item");
-    if (!projectItemBtn) return;
-    const projectId = projectItemBtn.parentElement.dataset.projectId;
+  // handleProjectNavClick(e) {
+  //   console.log(e.target);
+  //   const projectItemBtn = e.target.closest(".btn--project-item");
+  //   if (!projectItemBtn) return;
+  //   const projectId = projectItemBtn.parentElement.dataset.projectId;
 
-    // display new project view
-    this.view.renderProjectView(this.app.getProjectById(projectId));
-  }
+  //   // display new project view
+  //   this.view.renderProjectView(this.app.getProjectById(projectId));
+  // }
 
   handleNavItemClick(e) {
     const navBtn = e.target.closest(".btn--nav:not(.btn--projects");
     if (!navBtn) return;
 
-    if (navBtn.textContent.toLowerCase() === "inbox") {
+    const navBtns = e.currentTarget.querySelectorAll(".btn--nav");
+    const navListItem = navBtn.parentElement;
+    const projectId = navListItem.dataset.projectId;
+
+    if (projectId) {
+      // fetch project
+      const project = this.app.getProjectById(projectId);
+      console.log(project);
+
+      // render project
+      this.view.renderProjectView(project);
     }
 
     if (navBtn.textContent === "All Tasks") console.log("all tasks");
 
-    if (navBtn.parentElement.dataset.projectId) console.log(navBtn.parentElement.dataset.projectId);
+    // make clicked btn active state
+    navBtns.forEach(btn => btn.classList.remove("btn--active"));
+    navBtn.classList.add("btn--active");
   }
 }

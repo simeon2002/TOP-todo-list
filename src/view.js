@@ -170,8 +170,13 @@ class View {
     return html;
   }
 
-  addInboxIdToNav(id) {
-    this.#navList.querySelector(":has(.btn--inbox)").dataset.projectId = id;
+  inboxNavOnLoad(id) {
+    // add project id
+    const inboxNav = this.#navList.querySelector(":has(.btn--inbox)");
+    inboxNav.dataset.projectId = id;
+
+    // add focus
+    inboxNav.querySelector("button").classList.add("btn--active");
   }
 
   renderProjectsInSidebar(projects) {
