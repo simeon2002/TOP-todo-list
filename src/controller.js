@@ -235,12 +235,6 @@ export default class AppController {
       this.app.createProject({ name, color, description });
     }
 
-    // if form type is create project
-    // create project
-
-    // if form type is edit project
-    // update project
-
     // rerender project list
     this.view.renderProjectsInSidebar(this.app.projects);
 
@@ -260,19 +254,39 @@ export default class AppController {
 
     if (!confirmDeletion) return;
 
-    // delete project
-    const projectNavItem = deleteBtn.closest(".project-item");
-    const projectId = projectNavItem.dataset.projectId;
-    this.app.deleteProject(projectId);
+    this.deleteProject(deleteBtn);
+  }
 
-    // rerender sidebar project list
+  renderInboxView() {
+    this.view.renderProjectView(this.app.getInbox());
+    this.view.MakeInboxNavBtnActive();
+  }
+
+  deleteProject(deleteBtn) {
+    const projectNavItem = deleteBtn.closest(".project-item");
+    const idProjectItem = projectNavItem.dataset.projectId;
+
+    this.app.deleteProject(idProjectItem);
+
     this.view.renderProjectsInSidebar(this.app.projects);
 
-    // rerender to inbox view if current view was deleted project
-    if (this.view.getCurrentProjectId() === projectId) {
-      this.view.renderProjectView(this.app.getInbox());
-      this.view.MakeInboxNavBtnActive();
-    } else if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
-    else this.renderProjectView(this.app.getProjectById(this.view.getCurrentProjectId()));
+    this.renderProjectViewOnProjectDelete(idProjectItem);
+  }
+
+  renderProjectViewOnProjectDelete(projectId) {
+    const projectIdCurrentView = this.view.getCurrentProjectId();
+
+    if (projectIdCurrentView === projectId) {
+      this.renderInboxView();
+      return;
+    }
+
+    if (this.isAllTasksViewOpen()) {
+      this.handleAllTasksRender();
+      return;
+    }
+
+    const projectCurrentView = this.app.getProjectById(projectIdCurrentView);
+    this.view.renderProjectView(projectCurrentView);
   }
 }
