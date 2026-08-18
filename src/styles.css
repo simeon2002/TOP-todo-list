@@ -517,7 +517,7 @@ form h1 {
 }
 
 .btn.btn--active {
-  background-color: var(--clr-primary-100);
+  background-color: var(--clr-gray-300);
 }
 
 .list {

@@ -1,12 +1,14 @@
 class Project {
-  #name;
   #id;
+  #name;
+  #description;
   #color;
   #tasks = [];
 
-  constructor(name, color = "inherit") {
+  constructor(name, color = "inherit", description) {
     this.#id = crypto.randomUUID();
     this.#name = name;
+    this.#description = description;
     this.#color = color;
   }
 
@@ -170,8 +172,8 @@ class App {
     }
   }
 
-  createProject({ name, color }) {
-    this.isProjectNameUnqiue(name) && this.#projects.push(new Project(name, color));
+  createProject({ name, color, description }) {
+    this.isProjectNameUnqiue(name) && this.#projects.push(new Project(name, color, description));
     return App;
   }
 

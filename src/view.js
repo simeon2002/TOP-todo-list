@@ -6,6 +6,7 @@ class View {
   #btnProjects = document.querySelector(".btn--projects");
   #btnAddTasks = document.querySelectorAll(".btn--create-task");
   #btnSubmitForm = document.querySelector(".btn--form-submit");
+  #btnSumbitProjectForm = document.querySelector(".btn--project-form-submit");
   #btnCloseForm = document.querySelector(".btn--close-form");
   #btnCreateProject = document.querySelector(".btn--create-project");
   #projectList = document.querySelector(".project-list");
@@ -96,6 +97,10 @@ class View {
 
       this.renderProjectDialog();
     });
+  }
+
+  addBtnProjectFormSubmitHandler(handler) {
+    this.#projectForm.addEventListener("submit", handler);
   }
 
   closeOpenedTaskmenu() {

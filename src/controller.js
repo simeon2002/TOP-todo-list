@@ -15,6 +15,7 @@ export default class AppController {
     this.view.addBtnRemoveTaskHandler(this.handleRemoveTaskBtnClick.bind(this));
     // this.view.addProjectNavClicked(this.handleProjectNavClick.bind(this));
     this.view.addNavItemClickedHandler(this.handleNavItemClick.bind(this));
+    this.view.addBtnProjectFormSubmitHandler(this.handleBtnProjectFormSubmit.bind(this));
   }
 
   handlePagleLoad(e) {
@@ -211,5 +212,34 @@ export default class AppController {
 
   isAllTasksViewOpen() {
     return this.view.getCurrentProjectId() === "all tasks";
+  }
+
+  handleBtnProjectFormSubmit(e) {
+    e.preventDefault();
+    console.log(e);
+
+    // get form data
+    const formData = new FormData(e.target);
+    const formType = formData.get("form-type");
+    const name = formData.get("project-name");
+    const description = formData.get("project-desc");
+    const color = formData.get("project-color");
+
+    // check form type
+    if (formType === "create-project") {
+      this.app.createProject({ name, color, description });
+    }
+
+    // if form type is create project
+    // create project
+
+    // if form type is edit project
+    // update project
+
+    // rerender project list
+    this.view.renderProjectsInSidebar(this.app.projects);
+
+    // close modal
+    this.view.closeDialog(e.target.parentElement);
   }
 }
