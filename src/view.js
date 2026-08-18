@@ -96,7 +96,7 @@ class View {
     const html = this.generateProjectMarkup(name, tasks);
 
     // project id set in project article el
-    id && this.setProjectId(project.id);
+    id && this.setProjectId(id);
 
     // remove children besides add task container
     const projectChildren = [...this.#projectContainer.children];
@@ -151,7 +151,7 @@ class View {
 
   generateTaskMarkup(task) {
     const html = `
-            <div class="task" tabindex="0" data-task-id=${task.id}>
+            <div class="task" tabindex="0" data-task-id=${task.id} data-project-id=${task.projectId}>
               <label
                 ><input class="task__checkbox" type="checkbox" ${task.checked ? "checked" : ""}/><ion-icon
                   class="icon icon-checkmark"

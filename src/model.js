@@ -24,10 +24,11 @@ class Project {
   }
 
   createTask({ name, description = "", dueDate = "", priority, tags = [] }) {
-    this.#tasks.push(new Task(name, description, dueDate, priority, tags));
+    this.#tasks.push(new Task(this.#id, name, description, dueDate, priority, tags));
   }
 
   addTask(task) {
+    task.projectId = this.#id;
     this.#tasks.push(task);
   }
 
@@ -70,6 +71,7 @@ class Project {
 
 class Task {
   #id;
+  #projectId;
   #name;
   #description;
   #checked;
@@ -78,8 +80,9 @@ class Task {
   #dateCreated;
   #tags;
 
-  constructor(name, description = "", dueDate, priority, tags = [], checked = false) {
+  constructor(projectId, name, description = "", dueDate, priority, tags = [], checked = false) {
     this.#id = crypto.randomUUID();
+    this.#projectId = projectId;
     this.#name = name;
     this.#description = description;
     this.#checked = checked;
@@ -96,6 +99,14 @@ class Task {
 
   get id() {
     return this.#id;
+  }
+
+  get projectId() {
+    return this.#projectId;
+  }
+
+  set projectId(id) {
+    this.#projectId = id;
   }
 
   get description() {
@@ -124,6 +135,7 @@ class Task {
 
   update(taskInfo) {
     this.#name = taskInfo.name ?? this.#name;
+    this.#projectId = taskInfo.projectId;
     this.#description = taskInfo.description ?? this.#description;
     this.#dueDate = taskInfo.dueDate ?? this.#dueDate;
     this.#priority = taskInfo.priority ?? this.#priority;
