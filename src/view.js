@@ -7,14 +7,19 @@ class View {
   #btnAddTasks = document.querySelectorAll(".btn--create-task");
   #btnSubmitForm = document.querySelector(".btn--form-submit");
   #btnCloseForm = document.querySelector(".btn--close-form");
+  #btnCreateProject = document.querySelector(".btn--create-project");
   #projectList = document.querySelector(".project-list");
   #navList = document.querySelector(".nav-list");
   #taskForm = document.querySelector(".task-form");
+  #projectForm = document.querySelector(".project-form");
 
   constructor() {
+    console.log(this.#btnCreateProject);
+
     // events that don't modify any state
     this.#addBtnTaskDetailsHandler();
     this.addBtnCloseHandler();
+    this.addCreateProjectBtnHandler();
   }
 
   addPageLoadHandler(handler) {
@@ -82,6 +87,15 @@ class View {
 
   addNavItemClickedHandler(handler) {
     this.#navList.addEventListener("click", handler);
+  }
+
+  addCreateProjectBtnHandler() {
+    this.#projectList.addEventListener("click", e => {
+      const createProjectBtn = e.target.closest(".btn--create-project");
+      if (!createProjectBtn) return;
+
+      this.renderProjectDialog();
+    });
   }
 
   closeOpenedTaskmenu() {
@@ -279,6 +293,10 @@ class View {
 
   projectOptionMarkup(project) {
     return `<option value=${project.id} ${project.name === "inbox" ? "selected" : ""}>${project.name}</option>`;
+  }
+
+  renderProjectDialog() {
+    this.#projectForm.parentElement.showModal();
   }
 
   closeDialog(dialog) {
