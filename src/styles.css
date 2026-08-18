@@ -216,6 +216,7 @@ ion-icon {
   font-size: var(--fs-text-sec);
   margin-left: var(--space-100);
   min-height: 0;
+  gap: var(--space-50);
 }
 
 /* MAIN VIEW SECTION */

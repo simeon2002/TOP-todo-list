@@ -92,11 +92,11 @@ class View {
     });
   }
 
-  renderProjectView(project) {
-    const html = this.generateProjectMarkup(project);
+  renderProjectView({ id, name, tasks }) {
+    const html = this.generateProjectMarkup(name, tasks);
 
     // project id set in project article el
-    this.setProjectId(project.id);
+    id && this.setProjectId(project.id);
 
     // remove children besides add task container
     const projectChildren = [...this.#projectContainer.children];
@@ -131,18 +131,22 @@ class View {
     return this.#projectContainer.dataset.projectId;
   }
 
-  generateProjectMarkup(project) {
+  generateProjectMarkup(name, tasks) {
     return `
-          <h1 class="project__title heading-primary">${capacitlizeString(project.name)}</h1>
-          <div class="project__divider"></div>
+          ${this.generateProjectTitle(name)}
           <div class="project__task-list">
-            ${this.generateTaskListMarkup(project.tasks)}
+            ${this.generateTaskListMarkup(tasks)}
           </div>
     `;
   }
 
   generateTaskListMarkup(tasks) {
     return tasks.map(this.generateTaskMarkup).join("");
+  }
+
+  generateProjectTitle(name) {
+    return `<h1 class="project__title heading-primary">${capacitlizeString(name)}</h1>
+          <div class="project__divider"></div>`;
   }
 
   generateTaskMarkup(task) {

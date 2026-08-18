@@ -187,7 +187,10 @@ export default class AppController {
       this.view.renderProjectView(project);
     }
 
-    if (navBtn.textContent === "All Tasks") console.log("all tasks");
+    if (navBtn.textContent.toLowerCase() === "all tasks") {
+      const tasks = this.app.getAllTasks();
+      renderProjectView();
+    }
 
     // make clicked btn active state
     navBtns.forEach(btn => btn.classList.remove("btn--active"));

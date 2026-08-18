@@ -8,3 +8,7 @@
   2. state change --> Specific incremental update
      no.1 is easier to reason. You get the 'state' and you display the 'state' through the `View`. \*\*Libraries use this (`declarative rendering`) as it's easier to reason about... state --> what UI you want to display in general.
      no.2 is a more performant. Here you the detailed change, so you change only this part of the `View` based on a specific state change. (e.g., a task is added to a project. Instead of re-rendering the full view, only the specific task will be added.)
+
+# Todo's
+
+- Refactor navigation button code to generate sidebar data and project items on page load and then use the same current functionality to only update project list item CRUDs

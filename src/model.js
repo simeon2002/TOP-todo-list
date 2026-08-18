@@ -174,6 +174,10 @@ class App {
     return this.#projects.find(project => project.id === id);
   }
 
+  getAllTasks() {
+    return this.#projects.tasks;
+  }
+
   get projects() {
     return this.#projects.filter(project => project.name !== "inbox");
   }
