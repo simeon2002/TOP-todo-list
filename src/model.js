@@ -175,7 +175,7 @@ class App {
   }
 
   getAllTasks() {
-    return this.#projects.tasks;
+    return this.#projects.flatMap(project => project.tasks);
   }
 
   get projects() {
