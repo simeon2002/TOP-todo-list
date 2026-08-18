@@ -21,6 +21,7 @@ class View {
     this.#addBtnTaskDetailsHandler();
     this.addBtnCloseHandler();
     this.addCreateProjectBtnHandler();
+    this.handleDialogClose();
   }
 
   addPageLoadHandler(handler) {
@@ -78,7 +79,7 @@ class View {
 
   addBtnCloseHandler() {
     this.#btnCloseForm.addEventListener("click", e => {
-      this.#taskForm.parentElement.close();
+      this.closeDialog(e.target.closest("dialog"));
     });
   }
 
@@ -101,6 +102,10 @@ class View {
 
   addBtnProjectFormSubmitHandler(handler) {
     this.#projectForm.addEventListener("submit", handler);
+  }
+
+  handleDialogClose() {
+    document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("close", e => e.target.querySelector("form").reset()));
   }
 
   closeOpenedTaskmenu() {
@@ -137,11 +142,6 @@ class View {
 
     taskListEl.innerHTML = "";
     taskListEl.insertAdjacentHTML("beforeend", html);
-  }
-
-  addTask(task) {
-    const taskList = this.#projectContainer.querySelector(".project__task-list");
-    taskList.insertAdjacentHTML("beforeend", this.generateTaskMarkup(task));
   }
 
   setProjectId(projectId) {
@@ -230,27 +230,26 @@ class View {
     this.renderTaskForm(projects, type, task);
   }
 
-  renderTaskForm(projects, type, task) {
+  renderTaskForm(projects, type, task = undefined) {
     // place focus on name input field
     const taskNameField = this.#taskForm.elements["task-name"];
     taskNameField.focus();
 
     if (type === "createTask") {
       this.populateGeneralFormInfo(this.#taskForm, "New Task", "Create Task", "create-task");
+      this.renderProjectControlOptions(projects);
     }
 
     if (type === "editTask") {
       this.populateGeneralFormInfo(this.#taskForm, "edit task", "confirm edit", "edit-task");
       this.populateEditTaskFormInfo(task);
+      this.renderProjectControlOptions(projects, task.projectId, false);
     }
-
-    // Display all project options
-    this.renderProjectControlOptions(projects);
   }
 
-  renderProjectControlOptions(projects) {
+  renderProjectControlOptions(projects, projectIdFromTask, createTask = true) {
     const projectControlEl = this.#taskForm.querySelector("#project");
-    const html = this.generateProjectControlMarkup(projects, projectControlEl);
+    const html = this.generateProjectControlMarkup(projects, projectIdFromTask, createTask);
 
     // remove children
     projectControlEl.innerHTML = "";
@@ -292,16 +291,14 @@ class View {
     formTypeField.value = type;
   }
 
-  generateProjectControlMarkup(projects) {
-    return projects.map(this.projectOptionMarkup.bind(this)).join("");
+  generateProjectControlMarkup(projects, projectIdFromTask, createTask) {
+    return projects.map(project => this.projectOptionMarkup(project, projectIdFromTask, createTask)).join("");
   }
 
-  projectOptionMarkup(project) {
-    const openedProjectId = this.getCurrentProjectId();
+  projectOptionMarkup(project, projectIdFromTask, createTask) {
     let selectedOption;
-    if (project.id === openedProjectId) selectedOption = "selected";
-    else selectedOption = "";
-
+    if (createTask) selectedOption = project.id === this.getCurrentProjectId() ? "selected" : "";
+    else selectedOption = project.id === projectIdFromTask ? "selected" : "";
     return `<option value=${project.id} ${selectedOption}>${project.name}</option>`;
   }
 
@@ -311,8 +308,6 @@ class View {
 
   closeDialog(dialog) {
     dialog.close();
-
-    dialog.children[0].reset();
   }
 
   showTaskActionsMenu() {}

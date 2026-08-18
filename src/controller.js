@@ -124,7 +124,9 @@ export default class AppController {
     project.createTask({ name, description, dueDate, priority, tags });
 
     // rerender view if task is present here
-    if (this.view.getCurrentProjectId() === project.id) this.view.addTask(project.tasks.at(-1));
+    // if (this.view.getCurrentProjectId() === project.id) this.view.addTask(project.tasks.at(-1));
+    if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
+    else this.view.renderTaskList(currentProject.tasks);
   }
 
   handleEditTaskBtnClick(e) {
