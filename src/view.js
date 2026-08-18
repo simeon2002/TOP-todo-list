@@ -71,7 +71,7 @@ class View {
   handleBtnProjectDetailsClick() {
     document.body.addEventListener("click", e => {
       const projectDetailsBtn = e.target.closest(".btn--project-details");
-      if (!projectDetailsBtn) {
+      if (!projectDetailsBtn || projectDetailsBtn.classList.contains("btn--project-details--open")) {
         this.closeOpenedProjectMenu();
         return;
       }
