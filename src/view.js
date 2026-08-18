@@ -93,6 +93,8 @@ class View {
   }
 
   renderProjectView({ id, name, tasks }) {
+    console.log(id);
+
     const html = this.generateProjectMarkup(name, tasks);
 
     // project id set in project article el
@@ -190,7 +192,13 @@ class View {
     };
 
     const html = projects.map(generateProjectItemMarkup).join("");
-    this.#projectList.innerHTML = "";
+    this.#projectList.innerHTML = `
+        <li class="item project-create-item">
+          <button class="btn btn--create btn--create-project">
+            <ion-icon class="icon-add-task" name="add-outline"></ion-icon><span>Create Project</span>
+          </button>
+        </li>
+    `;
     this.#projectList.insertAdjacentHTML("afterbegin", html);
   }
 
@@ -200,10 +208,10 @@ class View {
     dialog.showModal();
 
     // render task form
-    this.renderTaskForm(projects, type);
+    this.renderTaskForm(projects, type, task);
   }
 
-  renderTaskForm(projects, type) {
+  renderTaskForm(projects, type, task) {
     // place focus on name input field
     const taskNameField = this.#taskForm.elements["task-name"];
     taskNameField.focus();
@@ -218,7 +226,7 @@ class View {
     }
 
     // Display all project options
-    renderProjectControlOptions(projects);
+    this.renderProjectControlOptions(projects);
   }
 
   renderProjectControlOptions(projects) {
@@ -273,13 +281,10 @@ class View {
     return `<option value=${project.id} ${project.name === "inbox" ? "selected" : ""}>${project.name}</option>`;
   }
 
-  closeForm() {
-    // if (type === "task") {
-    console.log(this.#taskForm.parentElement);
-    this.#taskForm.parentElement.close();
+  closeDialog(dialog) {
+    dialog.close();
 
-    this.#taskForm.reset();
-    // }
+    dialog.children[0].reset();
   }
 
   showTaskActionsMenu() {}

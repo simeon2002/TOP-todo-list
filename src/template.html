@@ -24,9 +24,7 @@
         <div class="nav-container">
           <ul class="list nav-list">
             <li class="item nav-item">
-              <button class="btn btn--create-task">
-                <ion-icon class="icon-add-task" name="add-outline"></ion-icon><span>Add task</span>
-              </button>
+              <button class="btn btn--create"><ion-icon class="icon-add-task" name="add-outline"></ion-icon><span>Add task</span></button>
             </li>
             <li class="item nav-item">
               <button type="button" class="btn btn--nav btn--inbox">Inbox</button>
@@ -42,6 +40,11 @@
                 <ul class="list project-list">
                   <!-- <li class="item project-item"><button class="btn btn--nav">Project Name</button></li>
                   <li class="item project-item"><button class="btn btn--nav">Project Name</button></li> -->
+                  <li class="item project-create-item">
+                    <button class="btn btn--create btn--create-project">
+                      <ion-icon class="icon-add-task" name="add-outline"></ion-icon><span>Create Project</span>
+                    </button>
+                  </li>
                 </ul>
               </div>
             </li>
@@ -52,13 +55,11 @@
         <article class="project">
           <div class="add-task-container">
             <div class="project__divider project__divider--add-task"></div>
-            <button class="btn btn--create-task">
-              <ion-icon class="icon-add-task" name="add-outline"></ion-icon><span>Add task</span>
-            </button>
+            <button class="btn btn--create"><ion-icon class="icon-add-task" name="add-outline"></ion-icon><span>Add task</span></button>
           </div>
         </article>
       </main>
-      <dialog>
+      <dialog class="task-dialog">
         <form class="task-form" data-id="">
           <header>
             <h1 class="heading-primary">New Task</h1>
@@ -100,6 +101,39 @@
             <button type="submit" class="btn btn--form-submit">Create Task</button>
           </div>
           <input type="hidden" name="form-type" value="create-task" />
+        </form>
+      </dialog>
+      <dialog class="project-dialog">
+        <form class="project-form">
+          <header>
+            <h1 class="heading-primary">New Project</h1>
+            <button type="button" class="btn btn--close-form">
+              <ion-icon class="icon icon--close-btn-form" name="close-outline"></ion-icon>
+            </button>
+          </header>
+          <div class="form-inputs-container">
+            <div class="form-container name-container">
+              <label for="project-name">Name</label>
+              <input type="text" id="project-name" name="project-name" required minlength="1" />
+            </div>
+            <div class="form-container desc-container">
+              <label for="project-desc">Description</label>
+              <textarea
+                name="project-desc"
+                id="project-desc"
+                placeholder="Add a project description here"
+                rows="2"
+                spellcheck="false"
+              ></textarea>
+            </div>
+            <div class="form-container color-container">
+              <label for="project-color">Color</label>
+              <input type="color" name="project-color" id="project-color" value="#229822" />
+            </div>
+          </div>
+          <div class="submit-container">
+            <button type="submit" class="btn btn--form-submit">Create Project</button>
+          </div>
         </form>
       </dialog>
     </div>

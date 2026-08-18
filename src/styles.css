@@ -155,7 +155,7 @@ ion-icon {
   gap: var(--space-140);
 }
 
-.item .btn:not(.btn--create-task):hover {
+.item .btn:not(.btn--create):hover {
   width: 100%;
   text-align: left;
   background-color: var(--clr-primary-100);
@@ -470,15 +470,19 @@ form h1 {
   transition: all 0.2s ease-out;
 }
 
-.btn--create-task {
+.btn--create {
   color: var(--clr-primary-600);
   display: flex;
   align-items: center;
   gap: var(--space-100);
 }
 
-.btn--create-task:hover {
+.btn--create:hover {
   color: var(--clr-primary-400);
+}
+
+.btn--create-project {
+  gap: var(--space-20);
 }
 
 .submit-container {
@@ -492,7 +496,7 @@ form h1 {
   background-color: var(--clr-primary-600);
   border-radius: 8px;
   padding: var(--space-100) var(--space-400);
-  transition: background-color 0.1s;
+  transition: background-color 0.2s;
 }
 
 .btn--close-form {

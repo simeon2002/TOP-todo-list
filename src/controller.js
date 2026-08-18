@@ -55,7 +55,7 @@ export default class AppController {
   handleAddTaskBtnClick(e) {
     console.log(this.app.getInbox());
 
-    this.view.renderTaskForm("createTask", { projects: [...this.app.projects, this.app.getInbox()] });
+    this.view.renderTaskDialog("createTask", { projects: [...this.app.projects, this.app.getInbox()] });
   }
 
   handleBtnFormSubmit(e) {
@@ -75,7 +75,7 @@ export default class AppController {
     }
 
     // close form
-    this.view.closeForm(formData);
+    this.view.closeDialog(e.target.parentElement);
   }
 
   handleTaskEdit(e, formData) {
@@ -141,7 +141,7 @@ export default class AppController {
     console.log(inbox);
 
     // render populated edit form
-    this.view.renderTaskForm("editTask", { projects: [inbox, ...projects], task });
+    this.view.renderTaskDialog("editTask", { projects: [inbox, ...projects], task });
   }
 
   handleRemoveTaskBtnClick(e) {
