@@ -126,7 +126,7 @@ export default class AppController {
     // rerender view if task is present here
     // if (this.view.getCurrentProjectId() === project.id) this.view.addTask(project.tasks.at(-1));
     if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
-    else this.view.renderTaskList(currentProject.tasks);
+    else this.view.renderTaskList(project.tasks);
   }
 
   handleEditTaskBtnClick(e) {
