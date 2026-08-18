@@ -178,22 +178,25 @@ export default class AppController {
   // }
 
   handleNavItemClick(e) {
-    const navItem = e.target.closest(".nav-list .item:not(:has(.btn--projects))");
+    const navItem = e.target.closest(".nav-list .item:not(:has(.btn--projects), :has(.btn--create))");
+
     if (!navItem) return;
-    console.log(navItem);
 
     const navItems = e.currentTarget.querySelectorAll(".nav-list .item");
     const navBtn = navItem.querySelector(".btn--nav");
+    console.log(navBtn);
+
     let projectId = navItem.dataset.projectId;
+
+    // if project clicked
     if (projectId) {
       // fetch project
       const project = this.app.getProjectById(projectId);
-      console.log(project);
-
       // render project
       this.view.renderProjectView(project);
     }
 
+    // if all task view clicked
     if (navBtn.textContent.toLowerCase() === "all tasks") {
       this.handleAllTasksRender();
     }

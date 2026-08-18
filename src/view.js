@@ -46,24 +46,15 @@ class View {
   #addBtnTaskDetailsHandler() {
     document.body.addEventListener("click", e => {
       const btn = e.target.closest(".btn--task-details");
-      const isTaskDetailsBtnClickedAgain = btn => {
-        btn && btn.classList.contains("btn--task-details--open");
-      };
 
-      // case: button clicked again
-      if (isTaskDetailsBtnClickedAgain(btn)) {
-        btn.classList.remove("btn--task-details--open");
+      // case: button clicked again or outside of button clicked
+      if (!btn || btn.classList.contains("btn--task-details--open")) {
+        this.closeOpenedTaskmenu();
         return;
       }
 
-      // case: outside of button clicked
+      // case: button clicked or other of the same button clicked
       this.closeOpenedTaskmenu();
-
-      if (!btn) {
-        return;
-      }
-
-      // case: button clicked for the first time
       btn.classList.add("btn--task-details--open");
     });
   }
