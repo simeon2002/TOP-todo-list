@@ -4,9 +4,10 @@ class Project {
   #color;
   #tasks = [];
 
-  constructor(name, color = "") {
+  constructor(name, color = "inherit") {
     this.#id = crypto.randomUUID();
     this.#name = name;
+    this.#color = color;
   }
 
   removeTask(taskId) {
@@ -62,6 +63,10 @@ class Project {
 
   get tasks() {
     return this.#tasks;
+  }
+
+  get color() {
+    return this.#color;
   }
 
   get id() {
@@ -148,7 +153,7 @@ class App {
 
   constructor() {
     this.createProject({ name: "inbox" });
-    this.createProject({ name: "First project" });
+    this.createProject({ name: "First project", color: "blue" });
     this.createProject({ name: "Second project" });
     this.createProject({ name: "Third Project" });
 

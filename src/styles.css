@@ -516,6 +516,10 @@ form h1 {
   align-items: center;
 }
 
+.btn--project-item {
+  border-left: 3px solid inherit;
+}
+
 .btn.btn--active {
   background-color: var(--clr-primary-100);
 }

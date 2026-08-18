@@ -184,8 +184,10 @@ class View {
   }
 
   renderProjectsInSidebar(projects) {
-    const generateProjectItemMarkup = project =>
-      `<li class="item project-item" data-project-id=${project.id}><button class="btn btn--nav btn--project-item">${project.name}</button></li>`;
+    const generateProjectItemMarkup = project => {
+      console.log(project.color);
+      return `<li class="item project-item" data-project-id=${project.id}><button class="btn btn--nav btn--project-item" ${project.color !== "inherit" ? `style="border-left: 3px solid ${project.color}"` : ""} >${project.name}</button></li>`;
+    };
 
     const html = projects.map(generateProjectItemMarkup).join("");
     this.#projectList.innerHTML = "";
