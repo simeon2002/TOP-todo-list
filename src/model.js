@@ -173,8 +173,8 @@ class App {
   }
 
   createProject({ name, color, description }) {
-    this.isProjectNameUnqiue(name) && this.#projects.push(new Project(name, color, description));
-    return App;
+    const project = new Project(name, color, description);
+    this.isProjectNameUnqiue(name) && this.#projects.push(project);
   }
 
   isProjectNameUnqiue(name) {

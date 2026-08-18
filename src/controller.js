@@ -242,5 +242,8 @@ export default class AppController {
 
     // close modal
     this.view.closeDialog(e.target.parentElement);
+
+    // render new project view
+    this.view.renderProjectView(this.app.getProjectByName(name));
   }
 }
