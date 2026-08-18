@@ -202,7 +202,7 @@ ion-icon {
 .project-list-container {
   display: grid;
   grid-template-rows: 0fr;
-  /* overflow: hidden; */
+  overflow: hidden;
   transition: grid-template-rows 0.2s ease-out;
 }
 

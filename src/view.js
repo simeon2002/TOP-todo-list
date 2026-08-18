@@ -62,14 +62,28 @@ class View {
   handleBtnProjectDetailsClick() {
     document.body.addEventListener("click", e => {
       const projectDetailsBtn = e.target.closest(".btn--project-details");
+      const projectListContainer = this.#projectList.parentElement;
+
       if (!projectDetailsBtn || projectDetailsBtn.classList.contains("btn--project-details--open")) {
-        this.closeOpenedProjectMenu();
+        this.closeProjectMenu();
         return;
       }
 
-      this.closeOpenedProjectMenu();
-      projectDetailsBtn.classList.add("btn--project-details--open");
+      this.openProjectMenu(projectDetailsBtn);
     });
+  }
+
+  closeProjectMenu() {
+    const projectListContainer = this.#projectList.parentElement;
+    projectListContainer.style.overflow = "hidden";
+    this.closeOpenedProjectMenu();
+  }
+
+  openProjectMenu(btn) {
+    const projectListContainer = this.#projectList.parentElement;
+    projectListContainer.style.overflow = "visible";
+    this.closeOpenedProjectMenu();
+    btn.classList.add("btn--project-details--open");
   }
 
   addBtnEditTaskHandler(handler) {
