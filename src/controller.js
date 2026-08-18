@@ -14,7 +14,7 @@ export default class AppController {
     this.view.addBtnEditTaskHandler(this.handleEditTaskBtnClick.bind(this));
     this.view.addBtnRemoveTaskHandler(this.handleRemoveTaskBtnClick.bind(this));
     this.view.addProjectNavClicked(this.handleProjectNavClick.bind(this));
-    this.view.addInboxNavClicked(this.handleInboxNavClick.bind(this));
+    this.view.addNavItemClickedHandler(this.handleNavItemClick.bind(this));
   }
 
   handlePagleLoad(e) {
@@ -29,6 +29,9 @@ export default class AppController {
 
     // display available projects in sidebar
     this.view.renderProjectsInSidebar(projects);
+
+    // add projectId to inbox nav item
+    this.view.addInboxIdToNav(this.app.getInbox().id);
   }
 
   handleBtnProjectsClick(e) {
@@ -167,18 +170,15 @@ export default class AppController {
     this.view.renderProjectView(this.app.getProjectById(projectId));
   }
 
-  handleInboxNavClick(e) {
-    const inboxBtn = e.target;
-    const projectsBtn = e.target.querySelector(".btn--inbox ~ .btn--projects");
-    console.log(projectsBtn);
+  handleNavItemClick(e) {
+    const navBtn = e.target.closest(".btn--nav:not(.btn--projects");
+    if (!navBtn) return;
 
-    // fetch inbox
-    const inbox = this.app.getProjectByName("inbox");
-    console.log(inbox);
+    if (navBtn.textContent.toLowerCase() === "inbox") {
+    }
 
-    // display inbox
-    this.view.renderProjectView(inbox);
+    if (navBtn.textContent === "All Tasks") console.log("all tasks");
 
-    // reset button--open color
+    if (navBtn.parentElement.dataset.projectId) console.log(navBtn.parentElement.dataset.projectId);
   }
 }

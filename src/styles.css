@@ -515,6 +515,10 @@ form h1 {
   align-items: center;
 }
 
+.btn.btn--active {
+  background-color: var(--clr-primary-100);
+}
+
 .list {
   list-style: none;
   text-transform: capitalize;
