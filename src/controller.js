@@ -55,7 +55,6 @@ export default class AppController {
 
   handleAddTaskBtnClick(e) {
     console.log(this.app.getInbox());
-
     this.view.renderTaskDialog("createTask", { projects: [...this.app.projects, this.app.getInbox()] });
   }
 

@@ -293,11 +293,16 @@ class View {
   }
 
   generateProjectControlMarkup(projects) {
-    return projects.map(this.projectOptionMarkup).join("");
+    return projects.map(this.projectOptionMarkup.bind(this)).join("");
   }
 
   projectOptionMarkup(project) {
-    return `<option value=${project.id} ${project.name === "inbox" ? "selected" : ""}>${project.name}</option>`;
+    const openedProjectId = this.getCurrentProjectId();
+    let selectedOption;
+    if (project.id === openedProjectId) selectedOption = "selected";
+    else selectedOption = "";
+
+    return `<option value=${project.id} ${selectedOption}>${project.name}</option>`;
   }
 
   renderProjectDialog() {
