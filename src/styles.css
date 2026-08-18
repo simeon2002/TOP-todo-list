@@ -385,14 +385,6 @@ dialog {
   width: 40%;
 }
 
-form {
-  display: none;
-}
-
-.show-form {
-  display: block;
-}
-
 dialog::backdrop {
   backdrop-filter: blur(1.5px);
 }

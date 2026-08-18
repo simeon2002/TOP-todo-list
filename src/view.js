@@ -194,34 +194,34 @@ class View {
     this.#projectList.insertAdjacentHTML("afterbegin", html);
   }
 
-  renderForm(type = "createTask", { projects, task }) {
-    console.log(projects);
-
-    if (type === "createTask") {
-      this.renderTaskForm(projects);
-      this.populateCreateTaskForm();
-    }
-
-    if (type === "editTask") {
-      this.renderTaskForm(projects);
-      this.populateEditTaskForm(task);
-    }
-  }
-
-  renderTaskForm(projects) {
-    // add class to render form
-    this.#taskForm.classList.add("show-form");
-    // TODO: remove show-form from project form.
-
+  renderTaskDialog(type = "createTask", { projects, task }) {
     // open dialog window
     const dialog = this.#taskForm.parentElement;
     dialog.showModal();
 
+    // render task form
+    this.renderTaskForm(projects, type);
+  }
+
+  renderTaskForm(projects, type) {
     // place focus on name input field
     const taskNameField = this.#taskForm.elements["task-name"];
     taskNameField.focus();
 
+    if (type === "createTask") {
+      this.populateGeneralFormInfo(this.#taskForm, "New Task", "Create Task", "create-task");
+    }
+
+    if (type === "editTask") {
+      this.populateGeneralFormInfo(this.#taskForm, "edit task", "confirm edit", "edit-task");
+      this.populateEditTaskFormInfo(task);
+    }
+
     // Display all project options
+    renderProjectControlOptions(projects);
+  }
+
+  renderProjectControlOptions(projects) {
     const projectControlEl = this.#taskForm.querySelector("#project");
     const html = this.generateProjectControlMarkup(projects, projectControlEl);
 
@@ -230,7 +230,7 @@ class View {
     projectControlEl.insertAdjacentHTML("afterbegin", html);
   }
 
-  populateEditTaskForm(task) {
+  populateEditTaskFormInfo(task) {
     const fieldMap = {
       name: "task-name",
       description: "task-desc",
@@ -258,11 +258,11 @@ class View {
     }
   }
 
-  populateCreateTaskForm() {
-    this.#taskForm.querySelector("h1").textContent = "New Task";
-    this.#btnSubmitForm.textContent = "Create Task";
-    const formTypeField = this.#taskForm.querySelector('input[type="hidden"');
-    formTypeField.value = "create-task";
+  populateGeneralFormInfo(form, title, btnContent, type = "create-task") {
+    form.querySelector("h1").textContent = capacitlizeString(title);
+    this.#btnSubmitForm.textContent = capacitlizeString(btnContent);
+    const formTypeField = form.querySelector('input[type="hidden"]');
+    formTypeField.value = type;
   }
 
   generateProjectControlMarkup(projects) {
