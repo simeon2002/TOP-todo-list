@@ -16,6 +16,7 @@ export default class AppController {
     // this.view.addProjectNavClicked(this.handleProjectNavClick.bind(this));
     this.view.addNavItemClickedHandler(this.handleNavItemClick.bind(this));
     this.view.addBtnProjectFormSubmitHandler(this.handleBtnProjectFormSubmit.bind(this));
+    this.view.addRemoveProjectBtnHandler(this.handleRemoveProjectBtnClick.bind(this));
   }
 
   handlePagleLoad(e) {
@@ -180,7 +181,7 @@ export default class AppController {
   handleNavItemClick(e) {
     const navItem = e.target.closest(".nav-list .item:not(:has(.btn--projects), :has(.btn--create))");
 
-    if (!navItem) return;
+    if (!navItem || e.target.closest(".project-details-dropdown")) return;
 
     const navItems = e.currentTarget.querySelectorAll(".nav-list .item");
     const navBtn = navItem.querySelector(".btn--nav");
@@ -248,5 +249,30 @@ export default class AppController {
 
     // render new project view
     this.view.renderProjectView(this.app.getProjectByName(name));
+  }
+
+  handleRemoveProjectBtnClick(e) {
+    const deleteBtn = e.target.closest(".btn--project-delete");
+
+    if (!deleteBtn) return;
+
+    const confirmDeletion = confirm("Are you sure you want to delete the project?");
+
+    if (!confirmDeletion) return;
+
+    // delete project
+    const projectNavItem = deleteBtn.closest(".project-item");
+    const projectId = projectNavItem.dataset.projectId;
+    this.app.deleteProject(projectId);
+
+    // rerender sidebar project list
+    this.view.renderProjectsInSidebar(this.app.projects);
+
+    // rerender to inbox view if current view was deleted project
+    if (this.view.getCurrentProjectId() === projectId) {
+      this.view.renderProjectView(this.app.getInbox());
+      this.view.MakeInboxNavBtnActive();
+    } else if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
+    else this.renderProjectView(this.app.getProjectById(this.view.getCurrentProjectId()));
   }
 }

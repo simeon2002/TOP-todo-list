@@ -183,7 +183,12 @@ class App {
 
   updateProject(projectId, projectInfo) {}
 
-  deleteProject(projectId) {}
+  deleteProject(projectId) {
+    const idx = this.#projects.findIndex(project => project.id === projectId);
+    console.log(this.#projects);
+    this.#projects.splice(idx, 1);
+    console.log(this.#projects);
+  }
 
   getProjectByName(name) {
     return this.#projects.filter(project => name === project.name)[0];

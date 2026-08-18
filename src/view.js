@@ -123,6 +123,10 @@ class View {
     this.#projectForm.addEventListener("submit", handler);
   }
 
+  addRemoveProjectBtnHandler(handler) {
+    this.#projectList.addEventListener("click", handler);
+  }
+
   handleDialogClose() {
     document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("close", e => e.target.querySelector("form").reset()));
   }
@@ -349,7 +353,10 @@ class View {
     dialog.close();
   }
 
-  showTaskActionsMenu() {}
+  MakeInboxNavBtnActive() {
+    const inboxNav = this.#navList.querySelector(":has(.btn--inbox)");
+    inboxNav.classList.add("item--active");
+  }
 }
 
 export { View };
