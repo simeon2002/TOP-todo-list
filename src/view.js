@@ -115,6 +115,7 @@ class View {
       const createProjectBtn = e.target.closest(".btn--create-project");
       if (!createProjectBtn) return;
 
+      this.populateGeneralFormInfo(this.#projectForm, "New Project", "Create Project", "create-project");
       this.renderProjectDialog();
     });
   }
@@ -378,6 +379,9 @@ class View {
       this.#projectForm.elements[fieldName].value = value;
       console.log(this.#projectForm.elements[fieldName]);
     }
+
+    // add project id to form
+    this.#projectForm.dataset.id = project.id;
   }
 }
 

@@ -59,6 +59,12 @@ class Project {
     });
   }
 
+  update(projectInfo) {
+    this.#name = projectInfo.name;
+    this.#description = projectInfo.description;
+    this.#color = projectInfo.color;
+  }
+
   get name() {
     return this.#name;
   }
@@ -187,8 +193,12 @@ class App {
     return !this.#projects.some(project => project.name === name);
   }
 
-  updateProject(oldProjectName, projectInfo) {
-    this.getProjectByName(oldProjectName);
+  updateProject(projectInfo) {
+    const project = this.getProjectById(projectInfo.id);
+
+    console.log("before", project);
+    project.update(projectInfo);
+    console.log("after", project);
   }
 
   deleteProject(projectId) {

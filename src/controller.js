@@ -225,19 +225,21 @@ export default class AppController {
     console.log(e);
 
     // get form data
-    const formData = new FormData(e.target);
+    const form = e.target;
+    const formData = new FormData(form);
     const formType = formData.get("form-type");
     const name = formData.get("project-name");
     const description = formData.get("project-desc");
     const color = formData.get("project-color");
+    const id = form.dataset?.id;
 
     // check form type
     if (formType === "create-project") {
       this.app.createProject({ name, color, description });
     }
 
-    if (formtype === "edit-project") {
-      this.app.updateProject();
+    if (formType === "edit-project") {
+      this.app.updateProject({ name, description, color, id });
     }
 
     // rerender project list
