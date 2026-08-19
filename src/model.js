@@ -187,12 +187,12 @@ class App {
 
   constructor() {
     this.createProject({ name: "inbox" });
-    this.createProject({ name: "First project", color: "blue", description: "testing" });
-    this.createProject({ name: "Second project" });
-    this.createProject({ name: "Third Project" });
+    // this.createProject({ name: "First project", color: "blue", description: "testing" });
+    // this.createProject({ name: "Second project" });
+    // this.createProject({ name: "Third Project" });
 
-    this.#projects.forEach(project => this.generateDummyData(project));
-    console.log(this.#projects);
+    // this.#projects.forEach(project => this.generateDummyData(project));
+    // console.log(this.#projects);
   }
 
   generateDummyData(project, taskCount = Math.floor(Math.random() * 5 + 1)) {
