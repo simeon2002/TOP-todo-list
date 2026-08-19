@@ -22,12 +22,13 @@ export default class AppController {
 
   handlePagleLoad(e) {
     console.log(this.app);
-    const inboxProject = this.app.getProjectByName("inbox");
 
-    // populate form local storage if present
+    // populate projects, tasks and inbox local storage if present
     this.app.fetchFromStorage();
+    if (!this.app.getInbox()) this.app.createInbox();
 
     //display inbox with populated tasks
+    const inboxProject = this.app.getProjectByName("inbox");
     this.view.renderProjectView(inboxProject);
 
     // Get projects

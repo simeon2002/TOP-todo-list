@@ -12,7 +12,9 @@ class Project {
     this.#color = color;
   }
 
-  static createExistingProject(id, name, color, description, tasks) {
+  static createExistingProject({ id, name, color, description, tasks }) {
+    console.log(this);
+
     const project = new Project(name, color, description, id);
 
     tasks.forEach(task => {
@@ -119,7 +121,7 @@ class Task {
   #dateCreated;
   #tags;
 
-  constructor(projectId, name, description = "", dueDate, priority, tags = [], checked = false, id) {
+  constructor(projectId, name, description = "", dueDate = "", priority, tags = [], checked = false, id) {
     this.#id = id ?? crypto.randomUUID();
     this.#projectId = projectId;
     this.#name = name;
@@ -202,7 +204,7 @@ class App {
   #projects = [];
 
   constructor() {
-    this.createProject({ name: "inbox" });
+    // this.createProject({ name: "inbox" });
     // this.createProject({ name: "First project", color: "blue", description: "testing" });
     // this.createProject({ name: "Second project" });
     // this.createProject({ name: "Third Project" });
@@ -217,6 +219,9 @@ class App {
         priority: "low",
       });
     }
+  }
+  createInbox() {
+    this.createProject({ name: "inbox" });
   }
 
   createProject({ name, color, description }) {
@@ -273,6 +278,10 @@ class App {
     return this.#projects.map(project => project.name);
   }
 
+  addProject(project) {
+    this.#projects.push(project);
+  }
+
   saveToStorage() {
     console.log(JSON.stringify(this.#projects));
 
@@ -281,9 +290,15 @@ class App {
 
   fetchFromStorage() {
     const projects = JSON.parse(localStorage.getItem("projects"));
+    if (!projects) return;
 
     console.log(typeof projects);
-    projects.forEach(project => console.log(project));
+    projects.forEach(project => {
+      const projectObj = Project.createExistingProject.bind(this)(project);
+      console.log("normal", project);
+      console.log("Project", projectObj);
+      this.addProject(projectObj);
+    });
   }
 }
 
