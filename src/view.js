@@ -235,7 +235,7 @@ class View {
     inboxNav.dataset.projectId = id;
 
     // add focus
-    inboxNav.querySelector("button").classList.add("btn--active");
+    inboxNav.classList.add("item--active");
   }
 
   renderProjectsInSidebar(projects) {
