@@ -12,6 +12,18 @@ class Project {
     this.#color = color;
   }
 
+  static createExistingProject(id, name, color, description, tasks) {
+    const project = new Project(name, color, description, id);
+
+    tasks.forEach(task => {
+      const taskObj = Task.createExistingTask(task.id, task.projectId, task.name, task.description, task.dueDate, task.priority, task.tags);
+
+      project.addTask(taskObj);
+    });
+
+    return project;
+  }
+
   removeTask(taskId) {
     const taskIndex = this.getTaskIndex(taskId);
     console.log(this.#tasks.splice(taskIndex, 1));
@@ -117,6 +129,10 @@ class Task {
     this.#priority = priority;
     this.#tags = tags;
     this.#dateCreated = new Date().getTime();
+  }
+
+  static createExistingTask(id, projectId, name, description, dueDate, priority, tags) {
+    return new Task(projectId, name, description, dueDate, priority, tags, id);
   }
 
   // Getter and setter methods
