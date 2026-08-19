@@ -78,6 +78,9 @@ export default class AppController {
 
     // close form
     this.view.closeDialog(e.target.parentElement);
+
+    // store new projects state
+    this.app.saveToStorage();
   }
 
   handleTaskEdit(e, formData) {
@@ -167,6 +170,9 @@ export default class AppController {
     // update task list
     if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
     else this.view.renderTaskList(currentProject.tasks);
+
+    // store new projects state
+    this.app.saveToStorage();
   }
 
   // handleProjectNavClick(e) {
@@ -250,6 +256,9 @@ export default class AppController {
 
     // render new project view
     this.view.renderProjectView(this.app.getProjectByName(name));
+
+    // store new projects state
+    this.app.saveToStorage();
   }
 
   handleRemoveProjectBtnClick(e) {
@@ -278,6 +287,9 @@ export default class AppController {
     this.view.renderProjectsInSidebar(this.app.projects);
 
     this.renderProjectViewOnProjectDelete(idProjectItem);
+
+    // store new projects state
+    this.app.saveToStorage();
   }
 
   renderProjectViewOnProjectDelete(projectId) {

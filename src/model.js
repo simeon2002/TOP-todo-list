@@ -5,7 +5,7 @@ class Project {
   #color;
   #tasks = [];
 
-  constructor(id, name, color = "inherit", description = "") {
+  constructor(name, color = "inherit", description = "", id) {
     this.#id = id ?? crypto.randomUUID();
     this.#name = name;
     this.#description = description;
@@ -65,6 +65,16 @@ class Project {
     this.#color = projectInfo.color;
   }
 
+  toJSON() {
+    return {
+      id: this.#id,
+      name: this.#name,
+      description: this.#description,
+      color: this.#color,
+      tasks: this.#tasks,
+    };
+  }
+
   get name() {
     return this.#name;
   }
@@ -97,7 +107,7 @@ class Task {
   #dateCreated;
   #tags;
 
-  constructor(id, projectId, name, description = "", dueDate, priority, tags = [], checked = false) {
+  constructor(projectId, name, description = "", dueDate, priority, tags = [], checked = false, id) {
     this.#id = id ?? crypto.randomUUID();
     this.#projectId = projectId;
     this.#name = name;
@@ -157,6 +167,18 @@ class Task {
     this.#dueDate = taskInfo.dueDate ?? this.#dueDate;
     this.#priority = taskInfo.priority ?? this.#priority;
     this.#tags = taskInfo.tags ?? this.#tags;
+  }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      name: this.#name,
+      projectId: this.#projectId,
+      description: this.#description,
+      duedate: this.#dueDate,
+      priority: this.#priority,
+      tags: this.#tags,
+    };
   }
 }
 
@@ -237,12 +259,12 @@ class App {
   }
 
   saveToStorage() {
-    localStorage.setItem("projects", JSON.stringify(projects))
+    console.log(JSON.stringify(this.#projects));
+
+    localStorage.setItem("projects", JSON.stringify(this.#projects));
   }
 
-  fetchFromStorage() {
-    const projects = 
-  }
+  fetchFromStorage() {}
 }
 
 export { App, Project, Task };
