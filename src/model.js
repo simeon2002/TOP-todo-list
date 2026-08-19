@@ -5,8 +5,8 @@ class Project {
   #color;
   #tasks = [];
 
-  constructor(name, color = "inherit", description = "") {
-    this.#id = crypto.randomUUID();
+  constructor(id, name, color = "inherit", description = "") {
+    this.#id = id ?? crypto.randomUUID();
     this.#name = name;
     this.#description = description;
     this.#color = color;
@@ -97,8 +97,8 @@ class Task {
   #dateCreated;
   #tags;
 
-  constructor(projectId, name, description = "", dueDate, priority, tags = [], checked = false) {
-    this.#id = crypto.randomUUID();
+  constructor(id, projectId, name, description = "", dueDate, priority, tags = [], checked = false) {
+    this.#id = id ?? crypto.randomUUID();
     this.#projectId = projectId;
     this.#name = name;
     this.#description = description;
@@ -234,6 +234,14 @@ class App {
 
   getProjectNames() {
     return this.#projects.map(project => project.name);
+  }
+
+  saveToStorage() {
+    localStorage.setItem("projects", JSON.stringify(projects))
+  }
+
+  fetchFromStorage() {
+    const projects = 
   }
 }
 
