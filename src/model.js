@@ -190,7 +190,6 @@ class App {
     // this.createProject({ name: "First project", color: "blue", description: "testing" });
     // this.createProject({ name: "Second project" });
     // this.createProject({ name: "Third Project" });
-
     // this.#projects.forEach(project => this.generateDummyData(project));
     // console.log(this.#projects);
   }
@@ -264,7 +263,12 @@ class App {
     localStorage.setItem("projects", JSON.stringify(this.#projects));
   }
 
-  fetchFromStorage() {}
+  fetchFromStorage() {
+    const projects = JSON.parse(localStorage.getItem("projects"));
+
+    console.log(typeof projects);
+    projects.forEach(project => console.log(project));
+  }
 }
 
 export { App, Project, Task };

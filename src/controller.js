@@ -24,6 +24,9 @@ export default class AppController {
     console.log(this.app);
     const inboxProject = this.app.getProjectByName("inbox");
 
+    // populate form local storage if present
+    this.app.fetchFromStorage();
+
     //display inbox with populated tasks
     this.view.renderProjectView(inboxProject);
 
