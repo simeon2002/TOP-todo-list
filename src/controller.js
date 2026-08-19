@@ -17,6 +17,7 @@ export default class AppController {
     this.view.addNavItemClickedHandler(this.handleNavItemClick.bind(this));
     this.view.addBtnProjectFormSubmitHandler(this.handleBtnProjectFormSubmit.bind(this));
     this.view.addRemoveProjectBtnHandler(this.handleRemoveProjectBtnClick.bind(this));
+    this.view.addEditProjectBtnHandler(this.handleEditProjectBtnClick.bind(this));
   }
 
   handlePagleLoad(e) {
@@ -235,6 +236,10 @@ export default class AppController {
       this.app.createProject({ name, color, description });
     }
 
+    if (formtype === "edit-project") {
+      this.app.updateProject();
+    }
+
     // rerender project list
     this.view.renderProjectsInSidebar(this.app.projects);
 
@@ -288,5 +293,22 @@ export default class AppController {
 
     const projectCurrentView = this.app.getProjectById(projectIdCurrentView);
     this.view.renderProjectView(projectCurrentView);
+  }
+
+  handleEditProjectBtnClick(e) {
+    const editBtn = e.target.closest(".btn--project-edit");
+    if (!editBtn) return;
+
+    const projectToEdit = this.getProjectToEdit(editBtn);
+
+    this.view.renderProjectDialog();
+
+    this.view.populateProjectForm(projectToEdit);
+  }
+
+  getProjectToEdit(btn) {
+    const projectItem = btn.closest(".project-item");
+    const projectId = projectItem.dataset.projectId;
+    return this.app.getProjectById(projectId);
   }
 }

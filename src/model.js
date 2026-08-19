@@ -5,7 +5,7 @@ class Project {
   #color;
   #tasks = [];
 
-  constructor(name, color = "inherit", description) {
+  constructor(name, color = "inherit", description = "") {
     this.#id = crypto.randomUUID();
     this.#name = name;
     this.#description = description;
@@ -73,6 +73,10 @@ class Project {
 
   get id() {
     return this.#id;
+  }
+
+  get description() {
+    return this.#description;
   }
 }
 
@@ -155,7 +159,7 @@ class App {
 
   constructor() {
     this.createProject({ name: "inbox" });
-    this.createProject({ name: "First project", color: "blue" });
+    this.createProject({ name: "First project", color: "blue", description: "testing" });
     this.createProject({ name: "Second project" });
     this.createProject({ name: "Third Project" });
 
@@ -173,6 +177,8 @@ class App {
   }
 
   createProject({ name, color, description }) {
+    console.log(description);
+
     const project = new Project(name, color, description);
     this.isProjectNameUnqiue(name) && this.#projects.push(project);
   }
@@ -181,7 +187,9 @@ class App {
     return !this.#projects.some(project => project.name === name);
   }
 
-  updateProject(projectId, projectInfo) {}
+  updateProject(oldProjectName, projectInfo) {
+    this.getProjectByName(oldProjectName);
+  }
 
   deleteProject(projectId) {
     const idx = this.#projects.findIndex(project => project.id === projectId);

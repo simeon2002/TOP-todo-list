@@ -127,6 +127,10 @@ class View {
     this.#projectList.addEventListener("click", handler);
   }
 
+  addEditProjectBtnHandler(handler) {
+    this.#projectList.addEventListener("click", handler);
+  }
+
   handleDialogClose() {
     document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("close", e => e.target.querySelector("form").reset()));
   }
@@ -329,7 +333,7 @@ class View {
 
   populateGeneralFormInfo(form, title, btnContent, type = "create-task") {
     form.querySelector("h1").textContent = capacitlizeString(title);
-    this.#btnSubmitForm.textContent = capacitlizeString(btnContent);
+    form.querySelector(".btn--form-submit").textContent = capacitlizeString(btnContent);
     const formTypeField = form.querySelector('input[type="hidden"]');
     formTypeField.value = type;
   }
@@ -356,6 +360,24 @@ class View {
   MakeInboxNavBtnActive() {
     const inboxNav = this.#navList.querySelector(":has(.btn--inbox)");
     inboxNav.classList.add("item--active");
+  }
+
+  populateProjectForm(project) {
+    this.populateGeneralFormInfo(this.#projectForm, project.name, "edit project", "edit-project");
+    this.populateProjectSpecificFormInfo(project);
+  }
+
+  populateProjectSpecificFormInfo(project) {
+    const fieldValueMap = {
+      "project-name": project.name,
+      "project-desc": project.description,
+      "project-color": project.color,
+    };
+
+    for (const [fieldName, value] of Object.entries(fieldValueMap)) {
+      this.#projectForm.elements[fieldName].value = value;
+      console.log(this.#projectForm.elements[fieldName]);
+    }
   }
 }
 
