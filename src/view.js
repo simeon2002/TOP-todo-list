@@ -242,10 +242,10 @@ class View {
   setNavItemActive(id) {
     console.log(id);
 
-    const navItem = document.querySelector(`[data-project-id="${id}"]`);
+    const navItem = document.querySelector(`.nav [data-project-id="${id}"]`);
     console.log(navItem);
 
-    const navItems = document.querySelectorAll(".item");
+    const navItems = document.querySelectorAll("nav .item");
     navItems.forEach(item => item.classList.remove("item--active"));
     navItem.classList.add("item--active");
   }

@@ -30,7 +30,8 @@ export default class AppController {
 
     //display inbox with populated tasks
     const inboxProject = this.app.getProjectByName("inbox");
-    this.view.renderProjectView(inboxProject);
+    this.view.setInboxId(inboxProject.id);
+    this.renderInboxView();
 
     // Get projects
     const projects = this.app.projects;
@@ -38,8 +39,6 @@ export default class AppController {
     // display available projects in sidebar
     this.view.renderProjectsInSidebar(projects);
 
-    // add projectId to inbox nav item
-    this.view.setInboxId(this.app.getInbox().id);
     this.view.setNavItemActive(this.app.getInbox().id);
     // this.view.setInboxNavOnLoad(this.app.getInbox().id);
   }
@@ -137,7 +136,6 @@ export default class AppController {
 
     // rerender view if task is present here
     // if (this.view.getCurrentProjectId() === project.id) this.view.addTask(project.tasks.at(-1));
-    debugger;
     const idOpenedProject = this.view.getCurrentProjectId();
     const openedProject = this.app.getProjectById(idOpenedProject);
     console.log(openedProject);
@@ -221,7 +219,6 @@ export default class AppController {
     }
 
     // make clicked btn active state
-    debugger;
     this.view.setNavItemActive(projectId);
   }
 
@@ -260,7 +257,9 @@ export default class AppController {
     }
 
     // rerender project list
+    const projectId = this.app.getProjectByName(name).id;
     this.view.renderProjectsInSidebar(this.app.projects);
+    this.view.setNavItemActive(projectId);
 
     // close modal
     this.view.closeDialog(e.target.parentElement);
@@ -286,7 +285,7 @@ export default class AppController {
 
   renderInboxView() {
     const inbox = this.app.getInbox();
-    this.view.renderProjectView();
+    this.view.renderProjectView(inbox);
     this.view.setNavItemActive(inbox.id);
   }
 
