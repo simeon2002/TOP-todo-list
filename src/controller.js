@@ -339,15 +339,12 @@ export default class AppController {
   }
 
   handleCheckTaskCompleted(e) {
-    const checkLabel = e.target.closest('label:has(input[type="checkbox"])');
-    if (!checkLabel) return;
+    const checkControl = e.target.closest(".task input");
+    if (!checkControl) return;
 
-    const checkControl = checkLabel.children[0];
+    // const checkControl = checkLabel.children[0];
     const taskId = checkControl.closest(".task").dataset.taskId;
     const currentProject = this.app.getProjectById(this.view.getCurrentProjectId());
-    const task = currentProject.getTaskById(taskId);
-    task.checked = checkControl.checked;
-
-    console.log(task);
+    currentProject.updateTask(taskId, { checked: checkControl.checked });
   }
 }

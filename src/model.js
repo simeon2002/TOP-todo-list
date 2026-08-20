@@ -28,7 +28,6 @@ class Project {
 
   removeTask(taskId) {
     const taskIndex = this.getTaskIndex(taskId);
-    console.log(this.#tasks.splice(taskIndex, 1));
   }
 
   getTaskIndex(taskId) {
@@ -37,7 +36,6 @@ class Project {
 
   updateTask(taskId, taskInfo) {
     this.getTaskById(taskId).update(taskInfo);
-    console.log(this.getTaskById(taskId));
   }
 
   createTask({ name, description = "", dueDate = "", priority, tags = [] }) {
@@ -52,7 +50,6 @@ class Project {
   moveTask(taskId, toProject) {
     // get index
     const taskIdx = this.getTaskIndex(taskId);
-    console.log(taskIdx);
 
     // add task to other project
     console.log("adding task...");
@@ -63,8 +60,6 @@ class Project {
 
     // project from this project
     this.removeTask(taskId);
-    console.log(this);
-    console.log(toProject);
   }
 
   getTaskById(taskId) {
@@ -162,9 +157,9 @@ class Task {
     return this.#checked;
   }
 
-  set checked(value) {
-    this.#checked = value;
-  }
+  // set checked(value) {
+  //   this.#checked = value;
+  // }
 
   get dueDate() {
     return this.#dueDate;
@@ -189,6 +184,7 @@ class Task {
     this.#dueDate = taskInfo.dueDate ?? this.#dueDate;
     this.#priority = taskInfo.priority ?? this.#priority;
     this.#tags = taskInfo.tags ?? this.#tags;
+    this.#checked = taskInfo.checked ?? this.#checked;
   }
 
   toJSON() {
@@ -200,6 +196,7 @@ class Task {
       duedate: this.#dueDate,
       priority: this.#priority,
       tags: this.#tags,
+      checked: this.#checked,
     };
   }
 }
@@ -229,8 +226,6 @@ class App {
   }
 
   createProject({ name, color, description }) {
-    console.log(description);
-
     const project = new Project(name, color, description);
     this.isProjectNameUnqiue(name) && this.#projects.push(project);
   }
@@ -242,16 +237,12 @@ class App {
   updateProject(projectInfo) {
     const project = this.getProjectById(projectInfo.id);
 
-    console.log("before", project);
     project.update(projectInfo);
-    console.log("after", project);
   }
 
   deleteProject(projectId) {
     const idx = this.#projects.findIndex(project => project.id === projectId);
-    console.log(this.#projects);
     this.#projects.splice(idx, 1);
-    console.log(this.#projects);
   }
 
   getProjectByName(name) {
