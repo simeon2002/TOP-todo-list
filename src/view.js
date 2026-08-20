@@ -132,6 +132,10 @@ class View {
     this.#projectList.addEventListener("click", handler);
   }
 
+  addTaskComletedCheckboxHandler(handler) {
+    this.#projectContainer.addEventListener("click", handler);
+  }
+
   handleDialogClose() {
     document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("close", e => e.target.querySelector("form").reset()));
   }

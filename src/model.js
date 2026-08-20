@@ -162,6 +162,10 @@ class Task {
     return this.#checked;
   }
 
+  set checked(value) {
+    this.#checked = value;
+  }
+
   get dueDate() {
     return this.#dueDate;
   }

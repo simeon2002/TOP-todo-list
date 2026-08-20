@@ -18,6 +18,7 @@ export default class AppController {
     this.view.addBtnProjectFormSubmitHandler(this.handleBtnProjectFormSubmit.bind(this));
     this.view.addRemoveProjectBtnHandler(this.handleRemoveProjectBtnClick.bind(this));
     this.view.addEditProjectBtnHandler(this.handleEditProjectBtnClick.bind(this));
+    this.view.addTaskComletedCheckboxHandler(this.handleCheckTaskCompleted.bind(this));
   }
 
   handlePagleLoad(e) {
@@ -335,5 +336,18 @@ export default class AppController {
     const projectItem = btn.closest(".project-item");
     const projectId = projectItem.dataset.projectId;
     return this.app.getProjectById(projectId);
+  }
+
+  handleCheckTaskCompleted(e) {
+    const checkLabel = e.target.closest('label:has(input[type="checkbox"])');
+    if (!checkLabel) return;
+
+    const checkControl = checkLabel.children[0];
+    const taskId = checkControl.closest(".task").dataset.taskId;
+    const currentProject = this.app.getProjectById(this.view.getCurrentProjectId());
+    const task = currentProject.getTaskById(taskId);
+    task.checked = checkControl.checked;
+
+    console.log(task);
   }
 }
