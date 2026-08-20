@@ -247,7 +247,7 @@ class View {
                 <div class="task-details">
                   <p class="task-date">${task.dueDate}</p>
                   <span class="vertical-div">|</span>
-                  <p class="task-priority" ${this.addPriorityColor(task.priority)}>${task.priority}</p>
+                  <p class="task-priority" style="color:${this.addPriorityColor(task.priority)}">Priority: ${task.priority}</p>
                   ${task.tags.length !== 0 ? `<span class="vertical-div">|</span>` : ""}
                 ${this.generateTagsMarkup(task.tags)}
                 </div>
