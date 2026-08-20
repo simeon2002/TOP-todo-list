@@ -128,8 +128,10 @@ class Task {
     this.#dateCreated = new Date().getTime();
   }
 
-  static createExistingTask(id, projectId, name, description, dueDate, priority, tags) {
-    return new Task(projectId, name, description, dueDate, priority, tags, id);
+  static createExistingTask(id, projectId, name, description, dueDate, priority, tags, checked) {
+    const task = new Task(projectId, name, description, dueDate, priority, tags, checked, id);
+    console.log(task);
+    return task;
   }
 
   // Getter and setter methods
