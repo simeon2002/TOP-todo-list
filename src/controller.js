@@ -38,7 +38,9 @@ export default class AppController {
     this.view.renderProjectsInSidebar(projects);
 
     // add projectId to inbox nav item
-    this.view.inboxNavOnLoad(this.app.getInbox().id);
+    this.view.setInboxId(this.app.getInbox().id);
+    this.view.setNavItemActive(this.app.getInbox().id);
+    // this.view.setInboxNavOnLoad(this.app.getInbox().id);
   }
 
   handleBtnProjectsClick(e) {
@@ -198,14 +200,14 @@ export default class AppController {
 
     if (!navItem || e.target.closest(".project-details-dropdown")) return;
 
-    const navItems = e.currentTarget.querySelectorAll(".nav-list .item");
     const navBtn = navItem.querySelector(".btn--nav");
-    console.log(navBtn);
+    console.log(navItem);
 
     let projectId = navItem.dataset.projectId;
+    console.log(projectId);
 
     // if project clicked
-    if (projectId) {
+    if (projectId !== "all tasks") {
       // fetch project
       const project = this.app.getProjectById(projectId);
       // render project
@@ -218,8 +220,8 @@ export default class AppController {
     }
 
     // make clicked btn active state
-    navItems.forEach(btn => btn.classList.remove("item--active"));
-    navItem.classList.add("item--active");
+    debugger;
+    this.view.setNavItemActive(projectId);
   }
 
   handleAllTasksRender() {
@@ -282,8 +284,9 @@ export default class AppController {
   }
 
   renderInboxView() {
-    this.view.renderProjectView(this.app.getInbox());
-    this.view.MakeInboxNavBtnActive();
+    const inbox = this.app.getInbox();
+    this.view.renderProjectView();
+    this.view.setNavItemActive(inbox.id);
   }
 
   deleteProject(deleteBtn) {

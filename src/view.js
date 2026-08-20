@@ -229,13 +229,21 @@ class View {
     return html;
   }
 
-  inboxNavOnLoad(id) {
+  setInboxId(id) {
     // add project id
     const inboxNav = this.#navList.querySelector(":has(.btn--inbox)");
     inboxNav.dataset.projectId = id;
+  }
 
-    // add focus
-    inboxNav.classList.add("item--active");
+  setNavItemActive(id) {
+    console.log(id);
+
+    const navItem = document.querySelector(`[data-project-id="${id}"]`);
+    console.log(navItem);
+
+    const navItems = document.querySelectorAll(".item");
+    navItems.forEach(item => item.classList.remove("item--active"));
+    navItem.classList.add("item--active");
   }
 
   renderProjectsInSidebar(projects) {
@@ -356,11 +364,6 @@ class View {
 
   closeDialog(dialog) {
     dialog.close();
-  }
-
-  MakeInboxNavBtnActive() {
-    const inboxNav = this.#navList.querySelector(":has(.btn--inbox)");
-    inboxNav.classList.add("item--active");
   }
 
   populateProjectForm(project) {
