@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { capacitlizeString } from "./utils.js";
 
 class View {
@@ -371,7 +372,14 @@ class View {
     // populate task controls
     const inputControls = [...this.#taskForm.elements];
     for (const [field, name] of Object.entries(fieldMap)) {
-      this.#taskForm.elements[name].value = task[field];
+      if (field === "dueDate" && task[field]) {
+        console.log(task[field]);
+        const date = format(task[field], "yyyy-MM-dd");
+        console.log(date);
+
+        this.#taskForm.elements[name].value = date;
+      } else this.#taskForm.elements[name].value = task[field];
+      console.log(this.#taskForm.elements[name].value);
     }
   }
 

@@ -99,6 +99,7 @@ export default class AppController {
     const currentProjectOfTask = this.app.getProjectByTaskId(taskId);
 
     // update task
+    console.log(taskInfo);
     currentProjectOfTask.updateTask(taskId, taskInfo);
 
     // if different project is selected, move task
