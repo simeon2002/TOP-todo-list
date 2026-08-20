@@ -178,7 +178,7 @@ export default class AppController {
 
     // update task list
     if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
-    else this.view.renderProjectView(currentProject.tasks);
+    else this.view.renderProjectView(currentProject);
 
     // store new projects state
     this.app.saveToStorage();
@@ -223,7 +223,7 @@ export default class AppController {
   }
 
   handleAllTasksRender() {
-    const tasks = this.app.getAllTasks();
+    const tasks = this.app.getAllTasksNotDone();
     const name = "all tasks";
     const id = "all tasks";
 
@@ -347,7 +347,8 @@ export default class AppController {
 
     this.app.saveToStorage();
 
-    this.view.renderProjectView(this.app.getProjectByTaskId(taskId));
+    if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
+    else this.view.renderProjectView(this.app.getProjectByTaskId(taskId));
   }
 
   updatetaskCheckedStatus(taskId, checkValue) {

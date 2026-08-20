@@ -262,6 +262,10 @@ class App {
     return this.#projects.flatMap(project => project.tasks);
   }
 
+  getAllTasksNotDone() {
+    return this.#projects.flatMap(project => project.tasks.filter(task => !task.checked));
+  }
+
   get projects() {
     return this.#projects.filter(project => project.name !== "inbox");
   }
