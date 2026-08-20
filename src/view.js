@@ -160,10 +160,6 @@ class View {
     const tasksDone = tasks.filter(task => task.checked);
     const tasksNotDone = tasks.filter(task => !task.checked);
 
-    const html = this.generateProjectMarkup(name, tasksNotDone);
-    const htmlCompletedTasks = this.generateCompletedTasksMarkup(tasksDone);
-    console.log(htmlCompletedTasks);
-
     // project id set in project article el
     id && this.setProjectId(id);
 
@@ -171,15 +167,19 @@ class View {
     const projectChildren = [...this.#projectContainer.children];
     projectChildren.forEach(child => {
       if (child.classList.contains("add-task-container")) return;
-      console.log(child);
 
       child.remove();
     });
-    console.log(this.#projectContainer.children);
 
     // insert project markup
+    const html = this.generateProjectMarkup(name, tasksNotDone);
     this.#projectContainer.insertAdjacentHTML("afterbegin", html);
-    this.#projectContainer.insertAdjacentHTML("beforeend", htmlCompletedTasks);
+    if (tasksDone.length !== 0) {
+      const htmlCompletedTasks = this.generateCompletedTasksMarkup(tasksDone);
+      console.log(htmlCompletedTasks);
+
+      this.#projectContainer.insertAdjacentHTML("beforeend", htmlCompletedTasks);
+    }
   }
 
   renderTaskList(tasks) {
@@ -188,7 +188,6 @@ class View {
     //  note: this violates the SRP but otherwise I have to do way too much refactoring!
     const tasksDone = tasks.filter(task => task.checked);
     const tasksNotDone = tasks.filter(task => !task.checked);
-    console.log(tasks, tasksDone, tasksNotDone);
 
     const html = this.generateTaskListMarkup(tasksNotDone);
     const htmlCompletedTasks = this.generateCompletedTasksMarkup(tasksDone);
