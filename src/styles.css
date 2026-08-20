@@ -71,7 +71,7 @@
 
   /***** WHITESPACE *****/
   /* spacing system */
-  --space-20: 0.2rem;
+  --space-25: 0.2rem;
   --space-50: 0.4rem;
   --space-100: 0.8rem;
   --space-140: 1.2rem;
@@ -260,7 +260,7 @@ ion-icon {
   display: block;
   visibility: hidden;
   opacity: 0;
-  padding: var(--space-20);
+  padding: var(--space-25);
   border-radius: 50%;
 }
 
@@ -337,6 +337,24 @@ ion-icon {
 
 .task-date {
   flex-shrink: 0;
+}
+
+.task-priority {
+  flex-shrink: 0;
+}
+
+.task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-50);
+}
+
+.task-tag {
+  padding: var(--space-25) var(--space-50);
+  flex-shrink: 0;
+  background-color: var(--clr-gray-400);
+  color: var(--clr-primary-600);
+  border-radius: 8px;
 }
 
 .task__title {
@@ -498,7 +516,7 @@ form header {
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: var(--space-20);
+  gap: var(--space-25);
 }
 
 form label {
@@ -517,7 +535,7 @@ form :is(select:focus-visible, input:focus-visible, textarea:focus-visible) {
 
 form :is(input, select) {
   max-width: 20rem;
-  padding: var(--space-20) var(--space-50);
+  padding: var(--space-25) var(--space-50);
   appearance: none;
 }
 
@@ -566,7 +584,7 @@ form h1 {
 }
 
 .btn--create-project {
-  gap: var(--space-20);
+  gap: var(--space-25);
 }
 
 .submit-container {
