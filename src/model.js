@@ -179,8 +179,10 @@ class Task {
   }
 
   update(taskInfo) {
+    console.log(this);
+
     this.#name = taskInfo.name ?? this.#name;
-    this.#projectId = taskInfo.projectId;
+    this.#projectId = taskInfo.projectId ?? this.#projectId;
     this.#description = taskInfo.description ?? this.#description;
     this.#dueDate = taskInfo.dueDate ?? this.#dueDate;
     this.#priority = taskInfo.priority ?? this.#priority;

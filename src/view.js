@@ -233,6 +233,8 @@ class View {
   }
 
   generateTaskMarkup(task) {
+    console.log(task.projectId);
+
     const html = `
             <div class="task ${task.checked ? "task--complete" : ""}" tabindex="0" data-task-id=${task.id} data-project-id=${task.projectId}>
               <label

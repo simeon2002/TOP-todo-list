@@ -151,10 +151,13 @@ export default class AppController {
     const taskEl = e.target.closest(".task");
     const taskId = taskEl.dataset.taskId;
     const projectId = taskEl.dataset.projectId;
-    const task = this.app.getProjectById(projectId).getTaskById(taskId);
+    console.log(taskId);
+    // console.log(this.app.getProjectById(projectId));
+    // console.log(projectId);
+
+    const task = this.app.getProjectByTaskId(taskId).getTaskById(taskId);
     const projects = this.app.projects;
     const inbox = this.app.getInbox();
-    console.log(inbox);
 
     // render populated edit form
     this.view.renderTaskDialog("editTask", { projects: [inbox, ...projects], task });
@@ -348,7 +351,12 @@ export default class AppController {
     this.app.saveToStorage();
 
     if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
-    else this.view.renderProjectView(this.app.getProjectByTaskId(taskId));
+    else {
+      const project = this.app.getProjectByTaskId(taskId);
+      console.log(project);
+
+      this.view.renderProjectView(project);
+    }
   }
 
   updatetaskCheckedStatus(taskId, checkValue) {
