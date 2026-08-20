@@ -157,7 +157,12 @@ class View {
   renderProjectView({ id, name, tasks }) {
     console.log(id);
 
-    const html = this.generateProjectMarkup(name, tasks);
+    const tasksDone = tasks.filter(task => task.checked);
+    const tasksNotDone = tasks.filter(task => !task.checked);
+
+    const html = this.generateProjectMarkup(name, tasksNotDone);
+    const htmlCompletedTasks = this.generateCompletedTasksMarkup(tasksDone);
+    console.log(htmlCompletedTasks);
 
     // project id set in project article el
     id && this.setProjectId(id);
@@ -166,20 +171,31 @@ class View {
     const projectChildren = [...this.#projectContainer.children];
     projectChildren.forEach(child => {
       if (child.classList.contains("add-task-container")) return;
+      console.log(child);
+
       child.remove();
     });
+    console.log(this.#projectContainer.children);
 
     // insert project markup
     this.#projectContainer.insertAdjacentHTML("afterbegin", html);
+    this.#projectContainer.insertAdjacentHTML("beforeend", htmlCompletedTasks);
   }
 
   renderTaskList(tasks) {
     const taskListEl = this.#projectContainer.querySelector(".project__task-list");
 
-    const html = this.generateTaskListMarkup(tasks);
+    //  note: this violates the SRP but otherwise I have to do way too much refactoring!
+    const tasksDone = tasks.filter(task => task.checked);
+    const tasksNotDone = tasks.filter(task => !task.checked);
+    console.log(tasks, tasksDone, tasksNotDone);
+
+    const html = this.generateTaskListMarkup(tasksNotDone);
+    const htmlCompletedTasks = this.generateCompletedTasksMarkup(tasksDone);
 
     taskListEl.innerHTML = "";
     taskListEl.insertAdjacentHTML("beforeend", html);
+    this.#projectContainer.insertAdjacentHTML("beforeend", htmlCompletedTasks);
   }
 
   setProjectId(projectId) {
@@ -203,6 +219,13 @@ class View {
     return tasks.map(this.generateTaskMarkup).join("");
   }
 
+  generateCompletedTasksMarkup(tasks) {
+    return `
+    <div className="project__task-list--competed">
+    ${this.generateTaskListMarkup(tasks)}
+    </div>`;
+  }
+
   generateProjectTitle(name) {
     return `<h1 class="project__title heading-primary">${capacitlizeString(name)}</h1>
           <div class="project__divider"></div>`;
@@ -210,7 +233,7 @@ class View {
 
   generateTaskMarkup(task) {
     const html = `
-            <div class="task" tabindex="0" data-task-id=${task.id} data-project-id=${task.projectId}>
+            <div class="task ${task.checked ? "task--complete" : ""}" tabindex="0" data-task-id=${task.id} data-project-id=${task.projectId}>
               <label
                 ><input class="task__checkbox" type="checkbox" ${task.checked ? "checked" : ""}/><ion-icon
                   class="icon icon-checkmark"

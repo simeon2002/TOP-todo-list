@@ -108,7 +108,7 @@ export default class AppController {
 
     // rerender view
     if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
-    else this.view.renderTaskList(currentProjectOfTask.tasks);
+    else this.view.renderProjectView(currentProjectOfTask);
   }
 
   getFormData(formData) {
@@ -140,7 +140,7 @@ export default class AppController {
     const openedProject = this.app.getProjectById(idOpenedProject);
     console.log(openedProject);
     if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
-    else this.view.renderTaskList(openedProject.tasks);
+    else this.view.renderProjectView(openedProject);
   }
 
   handleEditTaskBtnClick(e) {
@@ -178,7 +178,7 @@ export default class AppController {
 
     // update task list
     if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
-    else this.view.renderTaskList(currentProject.tasks);
+    else this.view.renderProjectView(currentProject.tasks);
 
     // store new projects state
     this.app.saveToStorage();
@@ -342,14 +342,16 @@ export default class AppController {
     if (!checkControl) return;
 
     // const checkControl = checkLabel.children[0];
-    this.updatetaskCheckedStatus(checkControl);
+    const taskId = checkControl.closest(".task").dataset.taskId;
+    this.updatetaskCheckedStatus(taskId, checkControl.checked);
 
     this.app.saveToStorage();
+
+    this.view.renderProjectView(this.app.getProjectByTaskId(taskId));
   }
 
-  updatetaskCheckedStatus(checkControl) {
-    const taskId = checkControl.closest(".task").dataset.taskId;
+  updatetaskCheckedStatus(taskId, checkValue) {
     const currentProject = this.app.getProjectByTaskId(taskId);
-    currentProject.updateTask(taskId, { checked: checkControl.checked });
+    currentProject.updateTask(taskId, { checked: checkValue });
   }
 }
