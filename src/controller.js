@@ -343,10 +343,14 @@ export default class AppController {
     if (!checkControl) return;
 
     // const checkControl = checkLabel.children[0];
+    this.updatetaskCheckedStatus(checkControl);
+
+    this.app.saveToStorage();
+  }
+
+  updatetaskCheckedStatus(checkControl) {
     const taskId = checkControl.closest(".task").dataset.taskId;
     const currentProject = this.app.getProjectByTaskId(taskId);
     currentProject.updateTask(taskId, { checked: checkControl.checked });
-
-    this.app.saveToStorage();
   }
 }
