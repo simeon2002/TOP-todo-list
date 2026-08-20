@@ -28,6 +28,7 @@ class Project {
 
   removeTask(taskId) {
     const taskIndex = this.getTaskIndex(taskId);
+    this.#tasks.splice(taskIndex, 1);
   }
 
   getTaskIndex(taskId) {

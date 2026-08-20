@@ -176,7 +176,6 @@ class View {
     this.#projectContainer.insertAdjacentHTML("afterbegin", html);
     if (tasksDone.length !== 0) {
       const htmlCompletedTasks = this.generateCompletedTasksMarkup(tasksDone);
-      console.log(htmlCompletedTasks);
 
       this.#projectContainer.insertAdjacentHTML("beforeend", htmlCompletedTasks);
     }
@@ -209,7 +208,7 @@ class View {
     return `
           ${this.generateProjectTitle(name)}
           <div class="project__task-list">
-          <h2 className="project__task-title">To do</h2>
+          <h2 className="project__task-title">To Do</h2>
             ${this.generateTaskListMarkup(tasks)}
           </div>
     `;
@@ -233,8 +232,6 @@ class View {
   }
 
   generateTaskMarkup(task) {
-    console.log(task.projectId);
-
     const html = `
             <div class="task ${task.checked ? "task--complete" : ""}" tabindex="0" data-task-id=${task.id} data-project-id=${task.projectId}>
               <label

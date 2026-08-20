@@ -177,7 +177,9 @@ export default class AppController {
     const taskId = e.target.closest(".task").dataset.taskId;
     const projectId = e.target.closest(".task").dataset.projectId;
     const currentProject = this.app.getProjectById(projectId);
+
     currentProject.removeTask(taskId);
+    console.log(currentProject);
 
     // update task list
     if (this.isAllTasksViewOpen()) this.handleAllTasksRender();
