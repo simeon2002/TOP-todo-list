@@ -210,6 +210,7 @@ class View {
     return `
           ${this.generateProjectTitle(name)}
           <div class="project__task-list">
+          <h2 className="project__task-title">To do</h2>
             ${this.generateTaskListMarkup(tasks)}
           </div>
     `;
@@ -222,6 +223,7 @@ class View {
   generateCompletedTasksMarkup(tasks) {
     return `
     <div className="project__task-list--competed">
+    <h2 className="project__task-title project__task-title--completed">Completed</h2>
     ${this.generateTaskListMarkup(tasks)}
     </div>`;
   }

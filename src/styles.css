@@ -293,12 +293,16 @@ ion-icon {
 .project__divider {
   height: 2px;
   background-color: var(--clr-gray-200);
-  margin-bottom: var(--space-400);
+  margin-bottom: var(--space-800);
 }
 
 .project__task-list {
   display: flex;
   flex-direction: column;
+}
+
+.project__task-title {
+  font-size: var(--fs-heading-sec);
 }
 
 .task {
@@ -434,6 +438,11 @@ label:hover:not(:has(.task__checkbox:checked)) .icon-checkmark {
 
 .btn--task-action:hover {
   background-color: var(--clr-gray-200);
+}
+
+/* styling tasks completed */
+.add-task-container {
+  margin-bottom: var(--space-600);
 }
 
 /* Dialog styling */
