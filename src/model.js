@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 class Project {
   #id;
   #name;
@@ -13,12 +15,12 @@ class Project {
   }
 
   static createExistingProject({ id, name, color, description, tasks }) {
-    console.log(this);
-
     const project = new Project(name, color, description, id);
 
     tasks.forEach(task => {
       const taskObj = Task.createExistingTask(task);
+      console.log(taskObj);
+      debugger;
 
       project.addTask(taskObj);
     });
@@ -123,13 +125,15 @@ class Task {
     this.#name = name;
     this.#description = description;
     this.#checked = checked;
-    this.#dueDate = dueDate;
+
+    this.#dueDate = dueDate !== "" ? new Date(dueDate) : "";
     this.#priority = priority;
     this.#tags = tags;
     this.#dateCreated = new Date().getTime();
   }
 
   static createExistingTask({ id, projectId, name, description, dueDate, priority, tags, checked }) {
+    console.log(dueDate);
     const task = new Task(projectId, name, description, dueDate, priority, tags, checked, id);
     return task;
   }
@@ -164,7 +168,7 @@ class Task {
   // }
 
   get dueDate() {
-    return this.#dueDate;
+    return this.#dueDate ? format(this.#dueDate, "MMM dd, yyyy") : "";
   }
 
   set dueDate(date) {
@@ -185,19 +189,21 @@ class Task {
     this.#name = taskInfo.name ?? this.#name;
     this.#projectId = taskInfo.projectId ?? this.#projectId;
     this.#description = taskInfo.description ?? this.#description;
-    this.#dueDate = taskInfo.dueDate ?? this.#dueDate;
+    this.#dueDate = new Date(taskInfo.dueDate) ?? this.#dueDate;
     this.#priority = taskInfo.priority ?? this.#priority;
     this.#tags = taskInfo.tags ?? this.#tags;
     this.#checked = taskInfo.checked ?? this.#checked;
   }
 
   toJSON() {
+    console.log(this.#dueDate);
+
     return {
       id: this.#id,
       name: this.#name,
       projectId: this.#projectId,
       description: this.#description,
-      duedate: this.#dueDate,
+      dueDate: this.#dueDate,
       priority: this.#priority,
       tags: this.#tags,
       checked: this.#checked,

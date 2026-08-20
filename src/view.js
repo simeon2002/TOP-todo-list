@@ -232,6 +232,8 @@ class View {
   }
 
   generateTaskMarkup(task) {
+    console.log(task.tags);
+
     const html = `
             <div class="task ${task.checked ? "task--complete" : ""}" tabindex="0" data-task-id=${task.id} data-project-id=${task.projectId}>
               <label
@@ -241,7 +243,13 @@ class View {
                   tabindex="0"
                 ></ion-icon
               ></label>
-              <h2 class="heading-secondary task__title">${capacitlizeString(task.name)}</h2>
+              <div className="task-container">
+                <h2 class="heading-secondary task__title">${capacitlizeString(task.name)}</h2>
+                <div className="task-details">
+                  <p className="task-date">${task.dueDate}</p>
+                  <p className="task-priority">${task.priority}</p>
+                </div>
+              </div>
               <div class="task-details-dropdown">
                 <button type="button" class="btn btn--task-details">
                   <ion-icon class="task__icon-edit-task" name="ellipsis-vertical-outline"></ion-icon>
