@@ -20,7 +20,6 @@ class Project {
     tasks.forEach(task => {
       const taskObj = Task.createExistingTask(task);
       console.log(taskObj);
-      debugger;
 
       project.addTask(taskObj);
     });
@@ -128,8 +127,9 @@ class Task {
 
     this.#dueDate = dueDate !== "" ? new Date(dueDate) : "";
     this.#priority = priority;
-    this.#tags = tags;
+    this.#tags = tags.length !== 0 ? tags : [];
     this.#dateCreated = new Date().getTime();
+    console.log(this.#tags);
   }
 
   static createExistingTask({ id, projectId, name, description, dueDate, priority, tags, checked }) {
@@ -186,13 +186,13 @@ class Task {
   update(taskInfo) {
     console.log(this);
 
-    this.#name = taskInfo.name ?? this.#name;
-    this.#projectId = taskInfo.projectId ?? this.#projectId;
-    this.#description = taskInfo.description ?? this.#description;
-    this.#dueDate = taskInfo.dueDate !== "" ? new Date(taskInfo.dueDate) : taskInfo.dueDate;
-    this.#priority = taskInfo.priority ?? this.#priority;
-    this.#tags = taskInfo.tags ?? this.#tags;
-    this.#checked = taskInfo.checked ?? this.#checked;
+    this.#name = taskInfo?.name ?? this.#name;
+    this.#projectId = taskInfo?.projectId ?? this.#projectId;
+    this.#description = taskInfo?.description ?? this.#description;
+    this.#dueDate = taskInfo?.dueDate ? new Date(taskInfo.dueDate) : this.#dueDate;
+    this.#priority = taskInfo?.priority ?? this.#priority;
+    this.#tags = taskInfo?.tags ?? this.#tags;
+    this.#checked = taskInfo?.checked ?? this.#checked;
   }
 
   toJSON() {

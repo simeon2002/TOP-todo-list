@@ -117,7 +117,10 @@ export default class AppController {
     const description = formData.get("task-desc");
     const dueDate = formData.get("due-date");
     const priority = formData.get("task-priority");
-    const tags = formData.get("task-tags");
+    const tags = formData
+      .get("task-tags")
+      .split(",")
+      .map(tag => tag.trim());
     const projectId = formData.get("project");
 
     return { name, description, dueDate, priority, tags, projectId };

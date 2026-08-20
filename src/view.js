@@ -209,20 +209,20 @@ class View {
     return `
           ${this.generateProjectTitle(name)}
           <div class="project__task-list">
-          <h2 className="project__task-title">To Do</h2>
+          <h2 class="project__task-title">To Do</h2>
             ${this.generateTaskListMarkup(tasks)}
           </div>
     `;
   }
 
   generateTaskListMarkup(tasks) {
-    return tasks.map(this.generateTaskMarkup).join("");
+    return tasks.map(this.generateTaskMarkup.bind(this)).join("");
   }
 
   generateCompletedTasksMarkup(tasks) {
     return `
-    <div className="project__task-list--competed">
-    <h2 className="project__task-title project__task-title--completed">Completed</h2>
+    <div class="project__task-list--competed">
+    <h2 class="project__task-title project__task-title--completed">Completed</h2>
     ${this.generateTaskListMarkup(tasks)}
     </div>`;
   }
@@ -233,8 +233,6 @@ class View {
   }
 
   generateTaskMarkup(task) {
-    console.log(task.tags);
-
     const html = `
             <div class="task ${task.checked ? "task--complete" : ""}" tabindex="0" data-task-id=${task.id} data-project-id=${task.projectId}>
               <label
@@ -244,11 +242,14 @@ class View {
                   tabindex="0"
                 ></ion-icon
               ></label>
-              <div className="task-container">
+              <div class="task-container">
                 <h2 class="heading-secondary task__title">${capacitlizeString(task.name)}</h2>
-                <div className="task-details">
-                  <p className="task-date">${task.dueDate}</p>
-                  <p className="task-priority">${task.priority}</p>
+                <div class="task-details">
+                  <p class="task-date">${task.dueDate}</p>
+                  <span class="vertical-div">|</span>
+                  <p class="task-priority" ${this.addPriorityColor(task.priority)}>${task.priority}</p>
+                  ${task.tags.length !== 0 ? `<span class="vertical-div">|</span>` : ""}
+                ${this.generateTagsMarkup(task.tags)}
                 </div>
               </div>
               <div class="task-details-dropdown">
@@ -263,6 +264,24 @@ class View {
             </div>
             `;
     return html;
+  }
+
+  generateTagsMarkup(tags) {
+    let html = `<div class="task-tags">`;
+    html += tags.map(tag => `<p class="task-tag">#${tag}</p>`).join("");
+    html += `</div>`;
+    return html;
+  }
+
+  addPriorityColor(priority) {
+    switch (priority) {
+      case "low":
+        return "";
+      case "medium":
+        return "blue";
+      case "high":
+        return "red";
+    }
   }
 
   setInboxId(id) {

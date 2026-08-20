@@ -323,6 +323,22 @@ ion-icon {
   color: var(--clr-primary-800);
 }
 
+.task-container {
+  margin-right: auto;
+}
+
+.task-details {
+  font-size: var(--fs-text-sec);
+  font-weight: var(--fw-regular);
+  color: var(--clr-gray-700);
+  display: flex;
+  gap: var(--space-100);
+}
+
+.task-date {
+  flex-shrink: 0;
+}
+
 .task__title {
   font-size: var(--fs-text-prim);
   font-weight: var(--fw-semi-bold);
@@ -330,7 +346,6 @@ ion-icon {
 
 .task-details-dropdown {
   flex-shrink: 0;
-  margin-left: auto;
   position: relative;
 }
 
