@@ -18,7 +18,7 @@ class Project {
     const project = new Project(name, color, description, id);
 
     tasks.forEach(task => {
-      const taskObj = Task.createExistingTask(task.id, task.projectId, task.name, task.description, task.dueDate, task.priority, task.tags);
+      const taskObj = Task.createExistingTask(task);
 
       project.addTask(taskObj);
     });
@@ -128,9 +128,8 @@ class Task {
     this.#dateCreated = new Date().getTime();
   }
 
-  static createExistingTask(id, projectId, name, description, dueDate, priority, tags, checked) {
+  static createExistingTask({ id, projectId, name, description, dueDate, priority, tags, checked }) {
     const task = new Task(projectId, name, description, dueDate, priority, tags, checked, id);
-    console.log(task);
     return task;
   }
 
@@ -289,7 +288,6 @@ class App {
     const projects = JSON.parse(localStorage.getItem("projects"));
     if (!projects) return;
 
-    console.log(typeof projects);
     projects.forEach(project => {
       const projectObj = Project.createExistingProject.bind(this)(project);
       console.log("normal", project);

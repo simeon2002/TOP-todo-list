@@ -344,7 +344,9 @@ export default class AppController {
 
     // const checkControl = checkLabel.children[0];
     const taskId = checkControl.closest(".task").dataset.taskId;
-    const currentProject = this.app.getProjectById(this.view.getCurrentProjectId());
+    const currentProject = this.app.getProjectByTaskId(taskId);
     currentProject.updateTask(taskId, { checked: checkControl.checked });
+
+    this.app.saveToStorage();
   }
 }
